@@ -7,7 +7,7 @@ Planung:https://www.overleaf.com/read/vvjwfkgjhfhd
 
 
 Nächste Schritte:
-1) Grafikausgabe verbessern: an den Spielfeldrand Buchstaben/Zahlen schreiben!!!
+1) Grafikausgabe verbessern: an den Spielfeldrand Buchstaben/Zahlen schreiben!!!(erledigt)
 2) moeglichezuege() beenden/testen
 3) die Funktion einbauen
 4) KI
@@ -38,3 +38,7 @@ e) patt Regeln einbauen
 f) Einstellung Schwierigkeitsgrad
 
 g) 2 Computer gegeneinander spielen lassen
+
+h) Spielfeld speichern/Exportieren
+
+i) Bestenliste
