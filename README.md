@@ -5,11 +5,13 @@ Projektpartner: Julian Stähle, Sönke Beier
 
 Planung:https://www.overleaf.com/read/vvjwfkgjhfhd
 
+Bericht:https://www.overleaf.com/read/khvkmfqjnnjm
+
 26/27.02.2018 Tagespunkte:
 - moeglichezuege abschließen(S)
 - moeglichezuege einbauen(S)
 - Bauern am Ende des Felds umwandeln(J)
-- Möglichkeiten einer besseren graphischen Darstellung überfliegen/einarbeiten (J)
+- Möglichkeiten einer besseren graphischen Darstellung überfliegen/einarbeiten (J) 
 - Grundgedanken zur KI (S)
 - Spielmöglichkeit ohne Regeln zu spielen
 
@@ -32,7 +34,7 @@ Wichtige Punkte:
 
 Zusatzaufgaben:
 
-a) Bauer am Ende des Schachfelds umwandeln
+a) Bauer am Ende des Schachfelds umwandeln (erledigt)
 
 b) Musik einbauen
 
@@ -40,7 +42,7 @@ c) schöne Grafik (mit Tkinter)
 
 d) schachmatt()
 
-e) patt Regeln einbauen
+e) patt Regeln einbauen/anbieten(<-mit Button)
 
 f) Einstellung Schwierigkeitsgrad
 
@@ -51,3 +53,15 @@ h) Spielfeld speichern/Exportieren
 i) Bestenliste
 
 j) Rochade 
+
+k) Speicheroption
+
+l) Partieverlauf mit Schachnotation speichern
+
+m) Rangliste
+
+n) Sprüche 
+
+o) Schachuhr
+
+p) Farbwahl
