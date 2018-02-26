@@ -8,9 +8,9 @@ Planung:https://www.overleaf.com/read/vvjwfkgjhfhd
 Bericht:https://www.overleaf.com/read/khvkmfqjnnjm
 
 26/27.02.2018 Tagespunkte:
-- moeglichezuege abschließen(S)
+- moeglichezuege abschließen(S) (erledigt)
 - moeglichezuege einbauen(S)
-- Bauern am Ende des Felds umwandeln(J)
+- Bauern am Ende des Felds umwandeln(J) (erdledigt)
 - Möglichkeiten einer besseren graphischen Darstellung überfliegen/einarbeiten (J) 
 - Grundgedanken zur KI (S)
 - Spielmöglichkeit ohne Regeln zu spielen
