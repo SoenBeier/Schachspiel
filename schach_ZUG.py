@@ -11,7 +11,7 @@ import schach_zugMOEGLICHKEITEN as zm
 def zug(feld, farbe):#(fertig) Führt einen Zug von Schwarz oder Weiß durch
     zugkorrekt = False
     
-    while zugkorrekt == False:#wenn der Zug korrekt ist, wird die while Schleife nicht mehr wiederholt, wenn er falsch ist wird nach einer richtigen Eingabe gefragt
+    while zugkorrekt != True:#wenn der Zug korrekt ist, wird die while Schleife nicht mehr wiederholt, wenn er falsch ist wird nach einer richtigen Eingabe gefragt
         
         #Eingabe des Zuges:
         zugarray4 = zugeingabe() #gibt Array mit 4 Zahlen von 0-8 zurück [x-Koordinate davor,y-Koordinate davor, x danach, y danach]
@@ -62,10 +62,20 @@ def zugpruefung(feld, zugarray, farbe): #prüft ob der zug korrekt war und gibt 
         rueckgabe = False
         print("Die angewählte Figur ist nicht ihre")
     else:
-        #Hier Erfolgt die Prüfung, ob der gewählte Zug möglich ist (sich im Array der möglichen Züge "m" befindet)
+        #Hier Erfolgt die Prüfung, ob der gewählte Zug, nach den Schachregeln, möglich ist (sich im Array der möglichen Züge "m" befindet)
         m = zm.moeglichezuege(za[0],za[1],feld, farbe) # za[0] = y, za[1] = x ; in m werden alle möglichen Ziele der Figur auf dem Feld mit den Koordinate za[0],za[1] gespeichert
-        
-         
+    
+        #Überprüfung, ob das ausgewählte Ziel im Array m enthalten ist: zur Erinerung: Struktur von m(y1,x1,y2,x2,y3...)
+        if (len(m)) > 1:
+            rueckgabe = None
+            for i in range(0,int(len(m)/2)):
+                if m[i * 2] == za[2]: 
+                    if m[i * 2 + 1] == za[3]:
+                        rueckgabe = True
+                        break
+        else:
+            rueckgabe = False
+     
     return rueckgabe
 
 
