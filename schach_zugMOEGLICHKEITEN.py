@@ -4,8 +4,10 @@ Created on Mon Feb 26 13:09:59 2018
 
 @author: S.H.B
 """
+#NOCH IM SCHACH STEHEN ERGÄNZEN !!!!
 
-def moeglichezuege(y, x, feld, farbe): #x,y == 0-7 /gibt ein Array zurück, in dem alle möglichen Züge der Figur auf der Position x,y gespeichert sind
+def moeglichezuege(y, x, feld, farbe): 
+    #x,y == 0-7 /gibt ein Array zurück, in dem alle möglichen Züge der Figur auf der Position x,y gespeichert sind
     #Zur Erinnerung: Weiß == kleine Buchstaben, Schwarz == große Buchstaben
     m = []#nach und nach werden hier alle möglichen Züge der Figur mit den Koordinaten x,y gespeichert 
     # -> diese sind gespeichert in der der Form [yZiel1,xZiel1,yZiel2,xZiel2,...,yZieln,xZieln]
@@ -337,39 +339,47 @@ def moeglichezuege(y, x, feld, farbe): #x,y == 0-7 /gibt ein Array zurück, in d
         else : #Farbe == "schwarz" == groß
             GegnerFiguren = wF
             Gegnerund0 = wF + ["0"]
-        
-        if (feld[y + 1][x] in Gegnerund0) and ((y + 1) <= 7): #Feld unten
-            if genugabstandkönige(y + 1,x,farbe,feld) == True:#überprüft ob nach diesem Zug der Abstand der Könige noch größer als 1 ist
-                m.append(y + 1)
-                m.append(x)
-        if (feld[y][x + 1] in Gegnerund0) and ((x + 1) <= 7): #Feld rechts
-            if genugabstandkönige(y,x + 1,farbe,feld) == True:
-                m.append(y)
-                m.append(x + 1)
-        if (feld[y + 1][x + 1] in Gegnerund0) and ((y + 1) <= 7) and ((x + 1) <= 7): #Feld rechts unten
-            if genugabstandkönige(y + 1,x + 1,farbe,feld) == True:
-                m.append(y + 1)
-                m.append(x + 1)
-        if (feld[y - 1][x - 1] in Gegnerund0) and ((y - 1) >= 0) and ((x - 1) >=0): #Feld links oben  
-            if genugabstandkönige(y - 1,x - 1,farbe,feld) == True:
-                m.append(y - 1)
-                m.append(x - 1)
-        if (feld[y - 1][x] in Gegnerund0) and ((y - 1) >= 0): #Feld oben
-            if genugabstandkönige(y - 1,x,farbe,feld) == True:
-                m.append(y - 1)
-                m.append(x)
-        if (feld[y][x - 1] in Gegnerund0) and ((x - 1) >=0): #Feld links
-            if genugabstandkönige(y,x - 1,farbe,feld) == True:
-                m.append(y)
-                m.append(x - 1)
-        if (feld[y + 1][x - 1] in Gegnerund0) and ((y + 1) <= 7) and ((x - 1) >=0):#Feld links unten
-            if genugabstandkönige(y + 1,x - 1,farbe,feld) == True:
-                m.append(y + 1)
-                m.append(x - 1)
-        if (feld[y - 1][x + 1] in Gegnerund0) and ((y - 1) >= 0) and ((x + 1) <= 7): #Feld oben rechts
-            if genugabstandkönige(y - 1,x + 1,farbe,feld) == True:
-                m.append(y - 1)
-                m.append(x + 1)
+       
+        if y < 7:
+            if (feld[y + 1][x] in Gegnerund0) and ((y + 1) <= 7): #Feld unten
+                if genugabstandkönige(y + 1,x,farbe,feld) == True:#überprüft ob nach diesem Zug der Abstand der Könige noch größer als 1 ist
+                    m.append(y + 1)
+                    m.append(x)
+        if x < 7:
+            if (feld[y][x + 1] in Gegnerund0) and ((x + 1) <= 7): #Feld rechts
+                if genugabstandkönige(y,x + 1,farbe,feld) == True:
+                    m.append(y)
+                    m.append(x + 1)
+        if (y < 7 and x < 7):
+            if (feld[y + 1][x + 1] in Gegnerund0) and ((y + 1) <= 7) and ((x + 1) <= 7): #Feld rechts unten
+                if genugabstandkönige(y + 1,x + 1,farbe,feld) == True:
+                    m.append(y + 1)
+                    m.append(x + 1)
+        if (y > 0 and x > 0):
+            if (feld[y - 1][x - 1] in Gegnerund0) and ((y - 1) >= 0) and ((x - 1) >=0): #Feld links oben  
+                if genugabstandkönige(y - 1,x - 1,farbe,feld) == True:
+                    m.append(y - 1)
+                    m.append(x - 1)
+        if y > 0:
+            if (feld[y - 1][x] in Gegnerund0) and ((y - 1) >= 0): #Feld oben
+                if genugabstandkönige(y - 1,x,farbe,feld) == True:
+                    m.append(y - 1)
+                    m.append(x)
+        if x > 0:
+            if (feld[y][x - 1] in Gegnerund0) and ((x - 1) >=0): #Feld links
+                if genugabstandkönige(y,x - 1,farbe,feld) == True:
+                    m.append(y)
+                    m.append(x - 1)
+        if (y < 7 and x > 0):
+            if (feld[y + 1][x - 1] in Gegnerund0) and ((y + 1) <= 7) and ((x - 1) >=0):#Feld links unten
+                if genugabstandkönige(y + 1,x - 1,farbe,feld) == True:
+                    m.append(y + 1)
+                    m.append(x - 1)
+        if (y > 0 and x < 7):
+            if (feld[y - 1][x + 1] in Gegnerund0) and ((y - 1) >= 0) and ((x + 1) <= 7): #Feld oben rechts
+                if genugabstandkönige(y - 1,x + 1,farbe,feld) == True:
+                    m.append(y - 1)
+                    m.append(x + 1)
             
         
     else: #Fehlermeldung
