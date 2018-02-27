@@ -21,6 +21,6 @@ spielfeld = np.array(
      ["t","s","l","d","k","l","s","t"]])
 
 farbe = "weiß"
-print(cpu.alle_moeglichen_zuege(spielfeld,farbe))
 
-
+#cpu.cpu_main(spielfeld,farbe,"leicht")
+print(cpu.alle_moeglichen_zuege(spielfeld,farbe,"leicht"))

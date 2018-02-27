@@ -32,7 +32,9 @@ while spielfertig == False: #so lange spielfertig == False, läuft das Spiel
     #Zug von Weiß:
     print("Weiß ist am Zug (b,d,k,t,..)")
     grafik.brettzeichnen(spielfeld)
+    
     spielfeld = z.zug(spielfeld, "weiß") #weiß == klein
+    
     if seso.schachmatt() == True:
         gewinner = einstellungen.Spieler1 
         break
@@ -47,4 +49,6 @@ while spielfertig == False: #so lange spielfertig == False, läuft das Spiel
         break
     seso.bauernumwandlung(spielfeld)
     
- 
+
+
+
