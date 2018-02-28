@@ -9,6 +9,9 @@ Created on Tue Feb 27 09:46:56 2018
 
 from pylab import*
 import schach_CPU as cpu
+import random as rn
+import schach_zugMOEGLICHKEITEN as s
+import schach_GRAFIK as g
 
 spielfeld = np.array(
     [["T","S","L","D","K","L","S","T"],
@@ -23,4 +26,6 @@ spielfeld = np.array(
 farbe = "weiß"
 
 #cpu.cpu_main(spielfeld,farbe,"leicht")
-print(cpu.alle_moeglichen_zuege(spielfeld,farbe,"leicht"))
+#print(cpu.alle_moeglichen_zuege(spielfeld,farbe,"leicht"))
+print("NÄCHSTE AUSGABE")
+g.brettzeichnen(cpu.cpu_main(spielfeld,farbe,"leicht"))

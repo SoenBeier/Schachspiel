@@ -14,22 +14,22 @@ wF = ["t","s","l","d","k","b"]
 aF = sF + wF
 
 
-def cpu_main(feld,farbe,schwierigkeit):
+def cpu_main(feld,farbe,schwierigkeit):#(getestet) gibt ein feld Array zurück, bei dem der Computergegner einen Zug gemacht hat
     amz_array = alle_moeglichen_zuege(feld,farbe,schwierigkeit)# amz_array in Form: yeigen1,xeigen1,yziel1,xziel1,typeigen1,typziel1,bewertung1...
-    print(amz_array)
+    #print(amz_array)
     #greift auf Bewertungen der züge zu und fasst sie im Array b zusammen(getestet)
     b = []
     for i in range (0,int((len(amz_array))/7)):
         b.append(amz_array[i * 7 + 6])
-    
+    print("b:",b)
     #erzeugt ein array index_maxb, in dem die Indizes der Elemente gespeichert werden, wenn diese max(b) groß sind
     index_maxb = []
     for j in range(0,len(b)):
         if b[j] == max(b):
-            index_maxb.append(b[j])
-    
+            index_maxb.append(j)
+    print("max:", index_maxb)
     #ermittelt zufälligerweise einen Index, welcher im array index_maxb benutzt wird
-    i = rn.randint(0,len(index_maxb))
+    i = rn.randint(0,len(index_maxb)-1) 
     print(i)
     
     #findet nun die y und x-Werte aus dem amz_array herraus, die zum Index in index_maxb passen
@@ -43,7 +43,7 @@ def cpu_main(feld,farbe,schwierigkeit):
     feld[ya][xa] = "0"
 
         
-
+    return(feld)
         
         
         
@@ -52,7 +52,7 @@ def cpu_main(feld,farbe,schwierigkeit):
     
     
 def zug_bewertung(ya,xa,ye,xe,feld,schwierigkeit): #yeigen,xeigen,yziel,xziel,typeigen,typziel,bewertung
-    if schwierigkeit == "leicht":
+    if schwierigkeit == "leicht":#(fertig)
         bewertung = 0
         zb = [ya,xa,ye,xe,feld[ya][xa],feld[ye][xe],bewertung]#alle Züge sind mit 1 gleich bewertet
         
@@ -61,7 +61,7 @@ def zug_bewertung(ya,xa,ye,xe,feld,schwierigkeit): #yeigen,xeigen,yziel,xziel,ty
 #!!!!!!! hier weiter
         zb = [ya,xa,ye,xe,feld[ya][xa],feld[ye][xe],bewertung]
         
-    if schwierigkeit == "schwer":
+    if schwierigkeit == "schwer":#noch nicht fertig
         bewertung = 0
         zb = [ya,xa,ye,xe,feld[ya][xa],feld[ye][xe],bewertung]
         
@@ -70,12 +70,10 @@ def zug_bewertung(ya,xa,ye,xe,feld,schwierigkeit): #yeigen,xeigen,yziel,xziel,ty
 
 def alle_moeglichen_zuege(feld,farbe,schwierigkeit): #amz_array in Form: yeigen1,xeigen1,yziel1,xziel1,typeigen1,typziel1,bewertung1...
     aef, aeft = alle_eigenen_figuren(feld,farbe)
-    print(aeft)
     amz_array = []
     
     for i in range(0,int(len(aef) / 2)): #geht jede einzelne eigene Figur durch und erzeugt ein Array mit den möglichen Zügen
         mz = zm.moeglichezuege(aef[i * 2], aef[i * 2 + 1], feld, farbe)
-        print(mz)
         for j in range(0,int(len(mz)/2)):#geht jede Zugmöglichkeit einer Figur durch und lässt sie bewerten
             zb = zug_bewertung(aef[i * 2], aef[i * 2 + 1], mz[j * 2], mz[j * 2 + 1], feld, schwierigkeit)
             

@@ -128,36 +128,36 @@ def moeglichezuege(y, x, feld, farbe):
         else : #Farbe == "schwarz" == groß
             Gegnerund0 = wF + ["0"]
         
-        if (y + 2) <= 7 and (x + 1) <= 7: #Schlag oder Bewegung unten2 rechts1
+        if ((y + 2) <= 7 and (x + 1) <= 7): #Schlag oder Bewegung unten2 rechts1
             if feld[y + 2][x + 1] in Gegnerund0 :
                 m.append(y + 2)
                 m.append(x + 1)
-        if (y + 2) <= 7 and (x - 1) >= 0: #Schlag oder Bewegung unten2 links1
+        if ((y + 2) <= 7 and (x - 1) >= 0): #Schlag oder Bewegung unten2 links1 
             if feld[y + 2][x - 1] in Gegnerund0:
                 m.append(y + 2)
                 m.append(x - 1)
-        if (y - 2) <= 0 and (x + 1) <= 7: #Schlag oder Bewegung oben2 rechts1
+        if ((y - 2) >= 0 and (x + 1) <= 7): #Schlag oder Bewegung oben2 rechts1
             if feld[y - 2][x + 1] in Gegnerund0:
                 m.append(y - 2)
                 m.append(x + 1)
-        if (y - 2) <= 0 and (x - 1) >= 0: #Schlag oder Bewegung oben2 links1
+        if ((y - 2) >= 0 and (x - 1)) >= 0: #Schlag oder Bewegung oben2 links1
             if feld[y - 2][x - 1] in Gegnerund0:
                 m.append(y - 2)
                 m.append(x - 1)
-        if (y + 1) <= 7 and (x + 2) <= 7: #Schlag oder Bewegung unten1 rechts2
+        if ((y + 1) <= 7 and (x + 2) <= 7): #Schlag oder Bewegung unten1 rechts2
             if feld[y + 1][x + 2] in Gegnerund0 :
                 m.append(y + 1)
                 m.append(x + 2)
-        if (y + 1) <= 7 and (x - 2) >= 0: #Schlag oder Bewegung unten1 links2
+        if ((y + 1) <= 7 and (x - 2) >= 0): #Schlag oder Bewegung unten1 links2
             if feld[y + 1][x - 2] in Gegnerund0:
                 m.append(y + 1)
                 m.append(x - 2)
-        if (y - 1) <= 0 and (x + 2) <= 7: #Schlag oder Bewegung oben1 rechts2
+        if ((y - 1) >= 0 and (x + 2) <= 7): #Schlag oder Bewegung oben1 rechts2
             if feld[y - 1][x + 2] in Gegnerund0:
                 m.append(y - 1)
                 m.append(x + 2)
-        if (y - 1) <= 0 and (x - 2) >= 0: #Schlag oder Bewegung oben1 links2
-             if feld[y - 1][x - 2] in Gegnerund0:
+        if ((y - 1) >= 0 and (x - 2) >= 0): #Schlag oder Bewegung oben1 links2
+            if feld[y - 1][x - 2] in Gegnerund0:
                 m.append(y - 1)
                 m.append(x - 2)
                 

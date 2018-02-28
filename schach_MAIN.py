@@ -38,7 +38,7 @@ while spielfertig == False: #so lange spielfertig == False, läuft das Spiel
     if seso.schachmatt() == True:
         gewinner = einstellungen.Spieler1 
         break
-    seso.bauerumwandlung(spielfeld)#Wandelt Bauern um, wenn diese das Ende des Spielfelds erreicht haben
+    seso.bauernumwandlung(spielfeld)#Wandelt Bauern um, wenn diese das Ende des Spielfelds erreicht haben
     
     #Zug von Schwarz
     print("Schwarz ist am Zug (B,D,K,T,..)")
