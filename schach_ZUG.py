@@ -16,7 +16,7 @@ def zug_grafik(feld, farbe, zugarray4):
     zugarray4[3] = zugarray4[3] + 1
     
     #Durchführung des Zuges
-    feld = zugdurchfuehrung(feld, zugarray4)
+    feld = zugdurchfuehren(feld, zugarray4)
     
     #Prüfung des Zuges
     zugkorrekt = zugpruefung(feld, zugarray4, farbe)
@@ -83,7 +83,7 @@ def zugpruefung(feld, zugarray, farbe): #prüft ob der zug korrekt war und gibt 
     else:
         #Hier Erfolgt die Prüfung, ob der gewählte Zug, nach den Schachregeln, möglich ist (sich im Array der möglichen Züge "m" befindet)
         m = zm.moeglichezuege(za[0],za[1],feld, farbe) # za[0] = y, za[1] = x ; in m werden alle möglichen Ziele der Figur auf dem Feld mit den Koordinate za[0],za[1] gespeichert
-r    
+    
         #Überprüfung, ob das ausgewählte Ziel im Array m enthalten ist: zur Erinerung: Struktur von m(y1,x1,y2,x2,y3...)
         if (len(m)) > 1:
             rueckgabe = None

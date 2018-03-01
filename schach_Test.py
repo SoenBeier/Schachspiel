@@ -37,7 +37,7 @@ def task(i):
     #global button1
     button1.config(text = i)
 
-    
+
 button1 = Button(root, text = "hey", command = lambda : task(2))
 
 button1.pack()
