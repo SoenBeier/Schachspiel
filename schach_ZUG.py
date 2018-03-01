@@ -8,6 +8,25 @@ Created on Mon Feb 26 12:57:31 2018
 from pylab import *
 import schach_zugMOEGLICHKEITEN as zm
 
+def zug_grafik(feld, farbe, zugarray4):
+    #Bearbeitung des Arrays, damit es mit den zu verfügung stehenden Methoden verstanden wird
+    zugarray4[0] = zugarray4[0] + 1
+    zugarray4[1] = zugarray4[1] + 1
+    zugarray4[2] = zugarray4[2] + 1
+    zugarray4[3] = zugarray4[3] + 1
+    
+    #Durchführung des Zuges
+    feld = zugdurchfuehrung(feld, zugarray4)
+    
+    #Prüfung des Zuges
+    zugkorrekt = zugpruefung(feld, zugarray4, farbe)
+    
+    return (feld,zugkorrekt)
+
+
+
+
+
 def zug(feld, farbe):#(fertig) Führt einen Zug von Schwarz oder Weiß durch
     zugkorrekt = False
     

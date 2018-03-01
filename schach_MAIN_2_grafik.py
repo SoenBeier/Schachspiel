@@ -10,6 +10,7 @@ import schach_ZUG as z
 import schach_GRAFIK as grafik
 import schach_SETTINGS_SONSTIGES as seso
 import schach_CPU as cpu
+from tkinter import *
 
 #Erstellung des 8*8 Arrays des Spielfeldes zu Beginn:
 spielfeld = np.array(
