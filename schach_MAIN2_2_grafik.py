@@ -76,9 +76,11 @@ def button_Funktion(y,x):#(fertig)y,x sind columne, row des Buttons
         config()
         
         
+        
         #Führt einen möglichen Computerzug durch, wenn die Anzahl der Spieler 1 ist
-        if einstellungen["AnzahlderSpieler"] == 1:
+        if einstellungen["Anzahl_Spieler"] == "1":
             feld = cpu.cpu_main(feld,farbe,einstellungen["schwierigkeit"])#als farbe ist gerade nur schwarz möglich
+            
             #Änderung der Farbe nach dem Zug
             if farbe == "weiß":
                 farbe = "schwarz"
