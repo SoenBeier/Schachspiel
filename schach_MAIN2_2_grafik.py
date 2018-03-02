@@ -12,6 +12,7 @@ import schach_SETTINGS_SONSTIGES as seso
 import schach_CPU as cpu
 from tkinter import *
 from tkinter import messagebox
+import copy
 
 
 # Ein Fenster erstellen
@@ -42,6 +43,7 @@ farbe = "weiß" #zeigt die Farbe an,die in diesen Moment an der Reihe ist
 status_ablauf = 1 #regelt den Ablauf des Programms
 
 
+
 #Vorgang wird ausgeführt, wenn ein Button gedrückt wird
 def button_Funktion(y,x):#(fertig)y,x sind columne, row des Buttons
     #GLOBALE VARIABELN WERDEN BENUTZT
@@ -50,27 +52,55 @@ def button_Funktion(y,x):#(fertig)y,x sind columne, row des Buttons
     global farbe
     global status_ablauf
     global feld
+    sF = ["T","S","L","D","K","B"] #alle schwarzen Figuren
+    wF = ["t","s","l","d","k","b"] #alle weißen Figuren
     
     #Erster Schritt jedes Zuges 
     if status_ablauf == 1:
         ya = y
         xa = x
         status_ablauf = 2
+        
+        #Überprüfung ob die gewünschte Figur einem selbst gehört
+        if farbe == "weiß":
+            if feld[ya][xa] not in wF:
+                print("Die ausgewählte Figur ist nicht ihre - weiß ist am Zug")
+                status_ablauf = 1
+        else :#farbe == "schwarz"
+            if feld[ya][xa] not in sF:
+                print("Die ausgewählte Figur ist nicht ihre - schwarz ist am Zug")
+                status_ablauf = 1
+            
+        
+        
     #Zweiter Schritt jedes Zuges
     else:
         #Erstellt ein Zugarray mit den notwendigen Informationen für einen Zug
         zugarray4 = [ya,xa,y,x]
         
         #Erstelt das neue Feld nach dem Zug und erstellt eine Variable, die anzeigt, ob der ausgeführt Zug den Schachregeln entspricht
-        feld, zugkorrekt = z.zug_grafik(feld,farbe,zugarray4)
+        test_feld = copy.deepcopy(feld) #aufgrund von Problemen mit der globalen Variabel
+
+        neues_feld, zugkorrekt = z.zug_grafik(test_feld,farbe,zugarray4)
+
+        #Überprüfung ob der Zug korrekt war
+        if zugkorrekt == True:
+            print("Zug durchgeführt")
+            feld = copy.deepcopy(neues_feld)
+        else:
+            print("Dieser Zug war nicht korrekt bitte versuchen sie es erneut ",farbe, " ist am Zug")
         
         #Nächster Zug fängt wieder mit Schritt 1 an
         status_ablauf = 1
         #Ändert die Farbe für den nächsten Zug
-        if farbe == "weiß":
-            farbe = "schwarz"
-        else:
-            farbe = "weiß"
+        if zugkorrekt == True:
+            if farbe == "weiß":
+                farbe = "schwarz"
+            else:
+                farbe = "weiß"
+            
+            print(farbe, " ist am Zug")
+        
         
         #Ändert die Anzeige der Buttons
         config()
@@ -78,17 +108,20 @@ def button_Funktion(y,x):#(fertig)y,x sind columne, row des Buttons
         
         
         #Führt einen möglichen Computerzug durch, wenn die Anzahl der Spieler 1 ist
-        if einstellungen["Anzahl_Spieler"] == "1":
-            feld = cpu.cpu_main(feld,farbe,einstellungen["schwierigkeit"])#als farbe ist gerade nur schwarz möglich
+        if zugkorrekt == True:
             
-            #Änderung der Farbe nach dem Zug
-            if farbe == "weiß":
-                farbe = "schwarz"
-            else:
-                farbe = "weiß"
+            if einstellungen["Anzahl_Spieler"] == "1":
+                print("Computer führt einen Zug aus")
+                feld = cpu.cpu_main(feld,farbe,einstellungen["schwierigkeit"])#als farbe ist gerade nur schwarz möglich
+            
+                #Änderung der Farbe nach dem Zug
+                if farbe == "weiß":
+                    farbe = "schwarz"
+                else:
+                    farbe = "weiß"
     
-            #Ändert die Anzeige der Buttons
-            config()
+                #Ändert die Anzeige der Buttons
+                config()
     
     
     

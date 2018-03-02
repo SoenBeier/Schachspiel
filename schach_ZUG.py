@@ -15,13 +15,14 @@ def zug_grafik(feld, farbe, zugarray4):
     zugarray4[2] = zugarray4[2] + 1
     zugarray4[3] = zugarray4[3] + 1
     
+    #Prüfung des Zuges
+    zugkorrekt = zugpruefung(feld, zugarray4, farbe)
     #Durchführung des Zuges
     feld = zugdurchfuehren(feld, zugarray4)
     
-    #Prüfung des Zuges
-    zugkorrekt = zugpruefung(feld, zugarray4, farbe)
     
-    return (feld,zugkorrekt)
+    return(feld,zugkorrekt)
+
 
 
 
@@ -69,6 +70,7 @@ def zugpruefung(feld, zugarray, farbe): #prüft ob der zug korrekt war und gibt 
     za =  [zugarray[0]-1 , zugarray[1]-1 , zugarray[2]-1 , zugarray[3]-1] # nun haben alle zahlen den Wert 0-7 statt 0-8
     
     #1.Fehlermöglichkeit: Auf dem angewählten Feld befindet sich keine Figur des eigenen Teams
+    
     if feld[za[0]][za[1]] == "0":
         rueckgabe = False
         print("Auf dem angewählten Feld befindet sich keine Figur")
@@ -86,30 +88,30 @@ def zugpruefung(feld, zugarray, farbe): #prüft ob der zug korrekt war und gibt 
     
         #Überprüfung, ob das ausgewählte Ziel im Array m enthalten ist: zur Erinerung: Struktur von m(y1,x1,y2,x2,y3...)
         if (len(m)) > 1:
-            rueckgabe = None
+            rueckgabe = False
             for i in range(0,int(len(m)/2)):
                 if m[i * 2] == za[2]: 
                     if m[i * 2 + 1] == za[3]:
                         rueckgabe = True
                         break
         else:
-            rueckgabe = False
-     
+            rueckgabe = None
+    
     return rueckgabe
 
 
 def zugdurchfuehren(feld,zugarray):#(getestet) führt den Zug auf dem Feldarray durch und gibt das Feldarray wieder
-    
+    neues_feld = feld
     #Für die Übersichtlichkeit: Definierung der Indizes für den Zugriff aufs Zugarray 
     x0 = zugarray[0]-1 #Wert:0-7
     x1 = zugarray[1]-1 #Wert:0-7
     x2 = zugarray[2]-1 #Wert:0-7
     x3 = zugarray[3]-1 #Wert:0-7
     
-    feld[x2][x3] = feld[x0][x1]
-    feld[x0][x1] = "0" #das feld, von dem sich die Figur wegbewegt wird leer(also"0")
+    neues_feld[x2][x3] = feld[x0][x1]
+    neues_feld[x0][x1] = "0" #das feld, von dem sich die Figur wegbewegt wird leer(also"0")
 
-    return feld
+    return neues_feld
 
 
 def zug_syntaxpruefung(zugarray2): #(getestet)Überprüft ob der eingegangene Zug den richtigen Syntax besitzt

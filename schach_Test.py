@@ -23,24 +23,8 @@ spielfeld = np.array(
      ["b","b","b","b","b","b","b","b"],
      ["t","s","l","d","k","l","s","t"]])
 
-farbe = "weiß"
+farbe = "schwarz"
 i = 0
-#cpu.cpu_main(spielfeld,farbe,"leicht")
-#print(cpu.alle_moeglichen_zuege(spielfeld,farbe,"leicht"))
-#print("NÄCHSTE AUSGABE")
-#g.brettzeichnen(cpu.cpu_main(spielfeld,farbe,"leicht"))
-root = Tk()
 
 
-    
-def task(i):
-    #global button1
-    button1.config(text = i)
-
-
-button1 = Button(root, text = "hey", command = lambda : task(2))
-
-button1.pack()
-
-
-root.mainloop()
+print(s.alle_ziele(spielfeld,farbe))

@@ -5,6 +5,7 @@ Created on Mon Feb 26 13:09:59 2018
 @author: S.H.B
 """
 #NOCH IM SCHACH STEHEN ERGÄNZEN !!!!
+import schach_CPU as cpu
 
 def moeglichezuege(y, x, feld, farbe): 
     #x,y == 0-7 /gibt ein Array zurück, in dem alle möglichen Züge der Figur auf der Position x,y gespeichert sind
@@ -140,7 +141,7 @@ def moeglichezuege(y, x, feld, farbe):
             if feld[y - 2][x + 1] in Gegnerund0:
                 m.append(y - 2)
                 m.append(x + 1)
-        if ((y - 2) >= 0 and (x - 1)) >= 0: #Schlag oder Bewegung oben2 links1
+        if ((y - 2) >= 0 and (x - 1) >= 0): #Schlag oder Bewegung oben2 links1
             if feld[y - 2][x - 1] in Gegnerund0:
                 m.append(y - 2)
                 m.append(x - 1)
@@ -412,3 +413,18 @@ def genugabstandkönige (y,x,farbe,feld): # (getestet) bekommt y - des Königs, 
         genug = False
             
     return (genug) 
+
+
+def alle_ziele(feld, farbe):#Gibt alle möglichen Ziele der eigenen Figuren wieder; Form :(y1,x1,y2,x2,y3,x3...)
+    eigene_Figuren, eigene_Figuren_typ = cpu.alle_eigenen_figuren(feld,farbe)
+    #print(eigene_Figuren)
+    alle_ziele_array = []
+    
+    for i in range(0,int(len(eigene_Figuren) / 2)): #geht jede eigene Figur durch
+        alle_ziele_array.append(moeglichezuege(eigene_Figuren[i * 2],eigene_Figuren[i * 2 + 1],feld,farbe))#fügt jedes Array, welches die moeglichenzuege erstellt dem alle_ziele_array hinzu
+    
+    return alle_ziele_array
+    
+    
+    
+    
