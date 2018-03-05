@@ -2,6 +2,20 @@
 #hilfreiche Sachen
 
 
+#Vorspannvideo
+def snd1():
+    os.system(r"C:\Users\Julian\Desktop\Schach\Schach_5.mp4")
+snd1()
+
+#Logo im Spielfenster
+a = PhotoImage(file=r"C:\Users\Julian\Desktop\Schach\BS.gif")
+imagelabel= Label(fenster, image = a)
+imagelabel.place(x=1050, y=25, width =200, height=200)
+
+
+
+
+
 #öffnet eine website hier für Schachregeln
 def webbi():
     
