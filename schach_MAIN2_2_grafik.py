@@ -13,6 +13,8 @@ import schach_CPU as cpu
 from tkinter import *
 from tkinter import messagebox
 import copy
+import pygame
+import webbrowser
 
 
 # Ein Fenster erstellen
@@ -54,7 +56,10 @@ def button_Funktion(y,x):#(fertig)y,x sind columne, row des Buttons
     global feld
     sF = ["T","S","L","D","K","B"] #alle schwarzen Figuren
     wF = ["t","s","l","d","k","b"] #alle weißen Figuren
-    
+    #erzeugt den Buttonsound
+    pygame.mixer.init()
+    pygame.mixer.music.load('buttonsound2.wav')
+    pygame.mixer.music.play()
     #Erster Schritt jedes Zuges 
     if status_ablauf == 1:
         ya = y
@@ -457,6 +462,19 @@ button64.place(x=350, y=350, width=50, height= 50)
 #andere buttons
 #Patt.place(x=500,y=150,width = 150, height = 50)
 Aufgeben.place(x=500,y=250,width = 150, height = 50)
+#Cover am Rand
+a = PhotoImage(file=r"C:\Users\Julian\Desktop\Schach\BS.gif")
+imagelabel= Label(fenster, image = a)
+imagelabel.place(x=1050, y=25, width =200, height=200)
+#Hintergrundsound im Fenster
+sound = pygame.mixer.Sound("tootledip.wav")    
+
+soundbutton = Button(fenster, text = "PLay Backgroundmusic", command = sound.play)
+soundbutton.place(x = 800, y = 400)
+
+soundbutton = Button(fenster, text = "Stop Backgroundmusic", command = sound.stop)
+soundbutton.place(x = 800, y = 500)
+
 # In der Ereignisschleife auf Eingabe des Benutzers warten.
 
 fenster.iconbitmap(r'Pferd.ico')
