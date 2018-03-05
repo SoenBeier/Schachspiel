@@ -66,9 +66,31 @@ def zug_bewertung_entscheider(ya,xa,ye,xe,feld):#gibt die Bewertung für einen Z
         bewertung = bewertung + 1 #bewertet den Zug automatisch höher
         bewertung = bewertung + wertung_figur[feld[ye][xe]] #bewertet den Zug relativ zur geschlagenen Person höher
         
-        #Lädt sich Informationen über die Art der Deckung der gegnerischen Figuren in die 3 folgenden Variabeln
-        status_deckung, vielfachheit_deckung, art_deckung = figur_gedeckt(ye,xe,feld)
-       
+        
+        
+    #Verringerung der Bewertung des Zuges, wenn die Figur auf ein Feld zieht, welches vom Gegner im Visier ist    
+    #Lädt sich Informationen über die Art der Deckung der gegnerischen Figuren in die 3 folgenden Variabeln
+    gegner_status_deckung, gegner_vielfachheit_deckung, gegner_art_deckung = feld_gedeckt(ye,xe,feld,gegner_farbe)
+        #Abziehen von Bewertungs-Punkten für den Zug, wenn das Ziel gut gedeckt ist
+    if gegner_status_deckung == True:
+        bewertung = bewertung - 1
+            
+        
+    #Erhöhung der Bewertung des Zuges, wenn die Figur auf ein Feld zieht, welche von Verbündeten im Visier ist
+    eigene_status_deckung, eigene_vielfachheit_deckung, eigene_art_deckung = feld_gedeckt(ye,xe,feld,eigene_farbe)
+    if eigene_status_deckung == True:
+        bewertung = bewertung - 1
+        
+    #erstellt Variabel für die Abbruchbedingung der while Schleife
+    evd_schleife = copy.deepcopy(eigene_vielfachheit_deckung)
+    #vergleicht die Deckungen des Zielfelds
+    while gegner_vielfachheit_deckung > evd_schleife:
+        bewertung = bewertung - 1
+        evd_schleife = evd_schleife + 1
+        #!!! weiter mit Bezug auf den Wert der Figuren, die an der Deckung beteiligt sind
+            
+    
+    
     
     #Bewertung aufgrund von Deckung gegenüber einer anderen verbündeten Figur(wichtig: Wertung einge Figur und eigene verbündete Figur)
      
@@ -85,17 +107,14 @@ def zug_bewertung_entscheider(ya,xa,ye,xe,feld):#gibt die Bewertung für einen Z
     
     return bewertung
 
-def figur_gedeckt(y,x,feld):#gibt Informationen zur Deckung der abgefragten Figur zurück
+def feld_gedeckt(y,x,feld,farbe):#gibt Informationen zur Deckung der abgefragten Figur zurück /farbe = verbündete Farbe
     status = False
     vielfachheit = 0
     art = []
     
     sF = ["T","S","L","D","K","B"]
     wF = ["t","s","l","d","k","b"]
-    if feld[y][x] in sF:
-        farbe = "schwarz"
-    else:
-        farbe = "weiß"
+
     
     arbeits_feld = copy.deepcopy(feld)
     arbeits_feld[y][x] = "0"
@@ -120,8 +139,8 @@ def figur_gedeckt(y,x,feld):#gibt Informationen zur Deckung der abgefragten Figu
     return(status , vielfachheit , art)#status-gedeckt(ja/nein), vielfachheit-durch wie viele gedeckt, art - durch wen gedeckt
 
 
-print(zug_bewertung_entscheider(ya,xa,ye,xe,spielfeld))
-#print(figur_gedeckt(0,0,spielfeld))
+#print(zug_bewertung_entscheider(ya,xa,ye,xe,spielfeld))
+print(feld_gedeckt(1,0,spielfeld,"schwarz"))
 
 
 
