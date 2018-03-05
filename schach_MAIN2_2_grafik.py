@@ -86,6 +86,7 @@ def button_Funktion(y,x):#(fertig)y,x sind columne, row des Buttons
         #Überprüfung ob der Zug korrekt war
         if zugkorrekt == True:
             print("Zug durchgeführt")
+            #das aktuelle Spielfeld besitzt nun die Werte des Feldes nach dem durchgeführten Zug
             feld = copy.deepcopy(neues_feld)
         else:
             print("Dieser Zug war nicht korrekt bitte versuchen sie es erneut ",farbe, " ist am Zug")
@@ -113,7 +114,10 @@ def button_Funktion(y,x):#(fertig)y,x sind columne, row des Buttons
             
             if einstellungen["Anzahl_Spieler"] == "1":
                 print("Computer führt einen Zug aus")
-                feld = cpu.cpu_main(feld,farbe,einstellungen["schwierigkeit"])#als farbe ist gerade nur schwarz möglich
+                #Aufgrund möglicher Fehler mit der globalen Variabel "feld" wird eine deepcopy erstellt und später der Computergegner-Funktion übergeben
+                neues_feld_cpu = copy.deepcopy(feld)
+                #die Computergegner-Funktion gibt ein Feld zurück, auf welchem ein Zug getätigt wurde
+                feld = cpu.cpu_main(neues_feld_cpu,farbe,einstellungen["schwierigkeit"])#als farbe ist gerade nur schwarz möglich
             
                 #Änderung der Farbe nach dem Zug
                 if farbe == "weiß":
