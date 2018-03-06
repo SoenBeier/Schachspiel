@@ -70,10 +70,12 @@ def button_Funktion(y,x):#(fertig)y,x sind columne, row des Buttons
         if farbe == "weiß":
             if feld[ya][xa] not in wF:
                 print("Die ausgewählte Figur ist nicht ihre - weiß ist am Zug")
+		messagebox.showerror("Error","Dieser Ausgewählte Figur ist nicht ihre - Weiß ist am Zug")
                 status_ablauf = 1
         else :#farbe == "schwarz"
             if feld[ya][xa] not in sF:
                 print("Die ausgewählte Figur ist nicht ihre - schwarz ist am Zug")
+		messagebox.showerror("Error","Dieser Ausgewählte Figur ist nicht ihre - Schwarz ist am Zug")
                 status_ablauf = 1
             
         
@@ -95,6 +97,7 @@ def button_Funktion(y,x):#(fertig)y,x sind columne, row des Buttons
             feld = copy.deepcopy(neues_feld)
         else:
             print("Dieser Zug war nicht korrekt bitte versuchen sie es erneut ",farbe, " ist am Zug")
+	    messagebox.showerror("Error","Dieser Zug ist ungültig")
         
         #Nächster Zug fängt wieder mit Schritt 1 an
         status_ablauf = 1
