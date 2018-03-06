@@ -17,15 +17,15 @@ import copy
 
 
 spielfeld = np.array(
-    [["T","S","L","D","K","L","S","T"],
-     ["B","B","B","B","B","B","B","B"],
-     ["0","0","0","0","0","0","0","0"],
-     ["0","0","0","0","0","0","0","0"],
-     ["0","0","0","0","0","0","0","0"],
-     ["0","0","0","0","0","0","0","0"],
-     ["b","b","b","b","b","b","b","b"],
-     ["t","s","l","d","k","0","s","t"]])
-
+    [["T","S","L","D","K","L","S","T"],#0
+     ["B","B","B","0","B","B","B","0"],#1
+     ["0","0","0","0","0","0","0","0"],#2
+     ["0","0","0","0","0","0","0","0"],#3
+     ["0","0","0","0","0","0","0","0"],#4
+     ["0","0","0","0","0","0","0","0"],#5
+     ["b","b","b","b","b","b","b","b"],#6
+     ["t","s","l","d","k","l","s","t"]])#7
+#      0   1   2   3   4   5   6   7
 farbe = "schwarz"
 i = 0
 ya = 1
@@ -111,52 +111,57 @@ def zug_bewertung_entscheider(ya,xa,ye,xe,feld):#gibt die Bewertung für einen Z
     return bewertung
 
 def feld_gedeckt(y,x,feld,farbe):#gibt Informationen zur Deckung der abgefragten Figur zurück /farbe = verbündete Farbe
+    
+    #Initialisierung der benötigten Variabeln   
+    #Variabeln, die später zurückgegeben werden
     status = False
     vielfachheit = 0
     art = []
     
+    #schwarze und weiße Figuren
     sF = ["T","S","L","D","K","B"]
     wF = ["t","s","l","d","k","b"]
-
     
-    arbeits_feld = copy.deepcopy(feld)
-    arbeits_feld[y][x] = "0"
-    eigene_Figuren, eigene_Figuren_typ = cpu.alle_eigenen_figuren(arbeits_feld,farbe)    
+    #benötigte Arrays
+    arbeits_feld = copy.deepcopy(feld) #aufgrund von Problemen mit globalen Variabeln
+    arbeits_feld[y][x] = "0" #Figur auf der gefragten Position wird gelöscht, damit später mit der moeglichezuege() Methode gearbeitet werden kann
+    eigene_Figuren, eigene_Figuren_typ = cpu.alle_eigenen_figuren(arbeits_feld, farbe)
     
     
-    
-    for i in range(0,int(len(eigene_Figuren) / 2)): #geht jede eigene Figur durch
+    for i in range(0,int(len(eigene_Figuren) / 2)):
+        #Erstellt in jedem Iterationsschritt ein Array mit den möglichen Zügen einer Figur..dabei verläuft die for-Schleife über jede Figur
+        
         mz = (s.moeglichezuege(eigene_Figuren[i * 2],eigene_Figuren[i * 2 + 1],arbeits_feld,farbe))
-        #print(mz)
+        
+        #Vergleicht die Koordinaten im Array mit den möglichen Zügen mit der y und x Koordinate, für welches Feld die Deckung überprüft werden soll
         for j in range(0,int(len(mz) / 2)):
-            if y == mz[j]:
-                if x == mz[j + 1]:
+            if y == mz[j * 2]:
+                if x == mz[j * 2 + 1]:
+                    #wenn y und x Koordinate übereinstimmen:
                     #erhöht die Anzahl der Deckungen der Figur
                     vielfachheit = vielfachheit + 1
-                    #Hängt die Art der Figur an das Array "art" an, wenn diese feld[y][x]schlagen kann
+                    #Hängt den Typen der Figur an das Array "art" an, wenn diese Figur das Feld[y][x] schlagen kann
                     art.append(arbeits_feld[eigene_Figuren[i * 2]][eigene_Figuren[i * 2 + 1]])
-
-
+    
+    
     if vielfachheit > 0:
+        #wenn es eine Person gibt, die das Feld[y][x] deckt:
         status = True
     
-    return(status , vielfachheit , art)#status-gedeckt(ja/nein), vielfachheit-durch wie viele gedeckt, art - durch wen gedeckt
-
-
-#print(zug_bewertung_entscheider(ya,xa,ye,xe,spielfeld))
-#feld gedeckt testen
-
-for i in range(0,8):
-    for j in range(0,8):
-        #print(feld_gedeckt(i,j,spielfeld,"weiß"))
-        None
-
-
-#print(feld_gedeckt(7,6,spielfeld,"b"))
-#print(s.moeglichezuege(7,6,spielfeld,"weiß"))
-#for j in range(0,8):
-   # print(s.genugabstandkönige(4,j,"weiß",spielfeld))
+    return(status, vielfachheit, art)
     
-#for j in range(0,8):  
-    #print(feld_gedeckt(0,j,spielfeld,"weiß"))
-print(s.alle_ziele(spielfeld,farbe))
+
+
+    
+for y in range(0,8):
+    for x in range(0,8):
+        print(feld_gedeckt(y,x,spielfeld,"weiß"))
+
+
+
+
+
+
+
+
+
