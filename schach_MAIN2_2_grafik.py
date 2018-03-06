@@ -119,7 +119,7 @@ def button_Funktion(y,x):#(fertig)y,x sind columne, row des Buttons
         config()
         #Überprüfung ob das Spiel zuende ist
         if seso.partie_verloren(feld,farbe) == True:
-            messagebox.showinfo(farbe, "hat verloren")
+            messagebox.showinfo(title = "VERLOREN" , farbe+ "hat verloren")
         
         
         
