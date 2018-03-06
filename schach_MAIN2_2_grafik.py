@@ -12,9 +12,9 @@ import schach_SETTINGS_SONSTIGES as seso
 import schach_CPU as cpu
 from tkinter import *
 from tkinter import messagebox
-import copy
 import pygame
 import webbrowser
+import copy
 
 
 # Ein Fenster erstellen
@@ -56,10 +56,12 @@ def button_Funktion(y,x):#(fertig)y,x sind columne, row des Buttons
     global feld
     sF = ["T","S","L","D","K","B"] #alle schwarzen Figuren
     wF = ["t","s","l","d","k","b"] #alle weißen Figuren
+    
     #erzeugt den Buttonsound
     pygame.mixer.init()
     pygame.mixer.music.load('buttonsound2.wav')
     pygame.mixer.music.play()
+    
     #Erster Schritt jedes Zuges 
     if status_ablauf == 1:
         ya = y
@@ -70,12 +72,12 @@ def button_Funktion(y,x):#(fertig)y,x sind columne, row des Buttons
         if farbe == "weiß":
             if feld[ya][xa] not in wF:
                 print("Die ausgewählte Figur ist nicht ihre - weiß ist am Zug")
-		messagebox.showerror("Error","Dieser Ausgewählte Figur ist nicht ihre - Weiß ist am Zug")
+                messagebox.showerror("Error","Dieser Ausgewählte Figur ist nicht ihre - Weiß ist am Zug")
                 status_ablauf = 1
         else :#farbe == "schwarz"
             if feld[ya][xa] not in sF:
                 print("Die ausgewählte Figur ist nicht ihre - schwarz ist am Zug")
-		messagebox.showerror("Error","Dieser Ausgewählte Figur ist nicht ihre - Schwarz ist am Zug")
+                messagebox.showerror("Error","Dieser Ausgewählte Figur ist nicht ihre - Schwarz ist am Zug")
                 status_ablauf = 1
             
         
@@ -97,8 +99,9 @@ def button_Funktion(y,x):#(fertig)y,x sind columne, row des Buttons
             feld = copy.deepcopy(neues_feld)
         else:
             print("Dieser Zug war nicht korrekt bitte versuchen sie es erneut ",farbe, " ist am Zug")
-	    messagebox.showerror("Error","Dieser Zug ist ungültig")
+            messagebox.showerror("Error","Dieser Zug ist ungültig")
         
+            
         #Nächster Zug fängt wieder mit Schritt 1 an
         status_ablauf = 1
         #Ändert die Farbe für den nächsten Zug
@@ -114,6 +117,10 @@ def button_Funktion(y,x):#(fertig)y,x sind columne, row des Buttons
         #Ändert die Anzeige der Buttons
         feld = seso.bauernumwandlung(feld)
         config()
+        #Überprüfung ob das Spiel zuende ist
+        if seso.partie_verloren(feld,farbe) == True:
+            messagebox.showinfo(farbe, "hat verloren")
+        
         
         
         
@@ -126,6 +133,8 @@ def button_Funktion(y,x):#(fertig)y,x sind columne, row des Buttons
                 neues_feld_cpu = copy.deepcopy(feld)
                 #die Computergegner-Funktion gibt ein Feld zurück, auf welchem ein Zug getätigt wurde
                 feld = cpu.cpu_main(neues_feld_cpu,farbe,einstellungen["schwierigkeit"])#als farbe ist gerade nur schwarz möglich
+                
+                
             
                 #Änderung der Farbe nach dem Zug
                 if farbe == "weiß":
@@ -136,6 +145,11 @@ def button_Funktion(y,x):#(fertig)y,x sind columne, row des Buttons
                 #Ändert die Anzeige der Buttons
                 feld = seso.bauernumwandlung(feld)
                 config()
+                
+                #Überprüfung ob das Spiel verloren ist
+                if seso.partie_verloren(feld,farbe) == True:
+                    messagebox.showinfo("VERLOREN", farbe + "hat verloren")
+                    
     
     
     
@@ -252,6 +266,7 @@ def Schachmatt2(einstellungen):
 #Definieren der einzelnen Buttons 
 
 #Randbuchstaben und Zahlen   
+Titel = Label(fenster,text = einstellungen["Name1"] + " vs " + einstellungen["Name2"],font=('Georgia',20))
 A = Label(fenster, text = 'A') 
 B = Label(fenster, text = 'B')
 C = Label(fenster, text = 'C')
@@ -268,6 +283,7 @@ M = Label(fenster, text = '5')
 N = Label(fenster, text = '6')
 O = Label(fenster, text = '7')
 P = Label(fenster, text = '8')
+Titel.place(x = 125, y = 500)
 I.place(x = 400, y=15)
 J.place(x = 400, y=65)
 K.place(x = 400, y=115)
@@ -370,8 +386,8 @@ help_menu = Menu(menuleiste, tearoff=0)
 
 # Beim Klick auf Datei oder auf Help sollen nun weitere Einträge erscheinen.
 # Diese werden also zu "datei_menu" und "help_menu" hinzugefügt
-datei_menu.add_command(label="Exit", command=fenster.quit)
 
+datei_menu.add_command(label="Exit", command=fenster.quit)
 
 help_menu.add_command(label="Schachregeln", command = webbi)
 help_menu.add_command(label="About...", command=action_get_info_dialog)
@@ -464,14 +480,16 @@ button64.place(x=350, y=350, width=50, height= 50)
 #andere buttons
 #Patt.place(x=500,y=150,width = 150, height = 50)
 Aufgeben.place(x=500,y=250,width = 150, height = 50)
+# In der Ereignisschleife auf Eingabe des Benutzers warten.
+
 #Cover am Rand
-photo = PhotoImage(file ="C:\\Users\\Julian\\Desktop\\Schachspiel-Entwicklung-Alpha\\BS.gif")
+photo = PhotoImage(file ="BS.gif")
 imagelabel= Label(fenster, image = photo)
 imagelabel.place(x=1050, y=25, width =200, height=200)
 #Hintergrundsound im Fenster
 pygame.mixer.pre_init(44100, 16, 2, 4096) #frequency, size, channels, buffersize
 pygame.init() #turn all of pygame on.
-sound = pygame.mixer.Sound("C:/Users/Julian/Desktop/Schachspiel-Entwicklung-Alpha/tootledip.wav")    
+sound = pygame.mixer.Sound("tootledip.wav")    
 
 soundbutton = Button(fenster, text = "Play Backgroundmusic", command = sound.play)
 soundbutton.place(x = 900, y = 25)
@@ -479,10 +497,16 @@ soundbutton.place(x = 900, y = 25)
 soundbutton = Button(fenster, text = "Stop Backgroundmusic", command = sound.stop)
 soundbutton.place(x = 900, y = 75)
 
-# In der Ereignisschleife auf Eingabe des Benutzers warten.
+
+
+
 
 fenster.iconbitmap(r'Pferd.ico')
 
+
+
+
+#Mainloop
 fenster.mainloop()    
     
     

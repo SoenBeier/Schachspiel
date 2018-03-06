@@ -348,6 +348,7 @@ def moeglichezuege(y, x, feld, farbe):
                     m.append(x)
         if x < 7:
             if (feld[y][x + 1] in Gegnerund0) and ((x + 1) <= 7): #Feld rechts
+                print(y,x+1,farbe,feld)
                 if genugabstandkönige(y,x + 1,farbe,feld) == True:
                     m.append(y)
                     m.append(x + 1)
@@ -382,7 +383,9 @@ def moeglichezuege(y, x, feld, farbe):
                     m.append(y - 1)
                     m.append(x + 1)
             
-        
+    elif feld[y][x] == "0":#Wenn ein lehres Feld aufgerufen wird wird [] zurückgegeben
+        return([])
+    
     else: #Fehlermeldung
         print(feld[y][x],farbe)
         raise NameError("Error - Schwerwiegender Fehler in moeglichezuege(x,y,feld,farbe) - Figur nicht erkannt")
@@ -391,6 +394,7 @@ def moeglichezuege(y, x, feld, farbe):
 
 
 def genugabstandkönige (y,x,farbe,feld): # (getestet) bekommt y - des Königs, x - des Königs, Farb - Wert des abgefragten Königs und Spielfeld
+    '''
     if farbe == "schwarz":
         for a in range(0,8):
             for b in range(0,8):
@@ -399,7 +403,7 @@ def genugabstandkönige (y,x,farbe,feld): # (getestet) bekommt y - des Königs, 
                     xkK = b #Abstand auf x-Achse könig-König
                     
                                     
-    elif farbe == "weiß" :  
+    else:  
         for a in range(0,8):
             for b in range(0,8):
                 if feld[a][b] == "K": 
@@ -411,7 +415,8 @@ def genugabstandkönige (y,x,farbe,feld): # (getestet) bekommt y - des Königs, 
         genug = True
     else:
         genug = False
-            
+    '''
+    genug = True
     return (genug) 
 
 
@@ -425,6 +430,6 @@ def alle_ziele(feld, farbe):#Gibt alle möglichen Ziele der eigenen Figuren wied
     
     return alle_ziele_array
     
-    
+   
     
     

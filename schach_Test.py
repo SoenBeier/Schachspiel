@@ -24,14 +24,14 @@ spielfeld = np.array(
      ["0","0","0","0","0","0","0","0"],
      ["0","0","0","0","0","0","0","0"],
      ["b","b","b","b","b","b","b","b"],
-     ["t","s","l","d","k","l","s","t"]])
+     ["t","s","l","d","k","0","s","t"]])
 
 farbe = "schwarz"
 i = 0
 ya = 1
 xa = 0
-ye = 7
-xe = 0
+ye = 5
+xe = 2
 
 
 def zug_bewertung_entscheider(ya,xa,ye,xe,feld):#gibt die Bewertung für einen Zug im normalen Spielmodus zurück
@@ -78,16 +78,19 @@ def zug_bewertung_entscheider(ya,xa,ye,xe,feld):#gibt die Bewertung für einen Z
         
     #Erhöhung der Bewertung des Zuges, wenn die Figur auf ein Feld zieht, welche von Verbündeten im Visier ist
     eigene_status_deckung, eigene_vielfachheit_deckung, eigene_art_deckung = feld_gedeckt(ye,xe,feld,eigene_farbe)
+    print(feld_gedeckt(ye,xe,feld,eigene_farbe))
     if eigene_status_deckung == True:
         bewertung = bewertung - 1
         
     #erstellt Variabel für die Abbruchbedingung der while Schleife
     evd_schleife = copy.deepcopy(eigene_vielfachheit_deckung)
-    #vergleicht die Deckungen des Zielfelds
+    #vergleicht die Deckungen des Zielfelds -> Zieht von der Wertung Punkte ab - wenn die Abdeckung des Gegners besser ist
+    print(gegner_vielfachheit_deckung, evd_schleife)
     while gegner_vielfachheit_deckung > evd_schleife:
         bewertung = bewertung - 1
         evd_schleife = evd_schleife + 1
         #!!! weiter mit Bezug auf den Wert der Figuren, die an der Deckung beteiligt sind
+        
             
     
     
@@ -124,6 +127,7 @@ def feld_gedeckt(y,x,feld,farbe):#gibt Informationen zur Deckung der abgefragten
     
     for i in range(0,int(len(eigene_Figuren) / 2)): #geht jede eigene Figur durch
         mz = (s.moeglichezuege(eigene_Figuren[i * 2],eigene_Figuren[i * 2 + 1],arbeits_feld,farbe))
+        #print(mz)
         for j in range(0,int(len(mz) / 2)):
             if y == mz[j]:
                 if x == mz[j + 1]:
@@ -140,8 +144,19 @@ def feld_gedeckt(y,x,feld,farbe):#gibt Informationen zur Deckung der abgefragten
 
 
 #print(zug_bewertung_entscheider(ya,xa,ye,xe,spielfeld))
-print(feld_gedeckt(1,0,spielfeld,"schwarz"))
+#feld gedeckt testen
+
+for i in range(0,8):
+    for j in range(0,8):
+        #print(feld_gedeckt(i,j,spielfeld,"weiß"))
+        None
 
 
-
-
+#print(feld_gedeckt(7,6,spielfeld,"b"))
+#print(s.moeglichezuege(7,6,spielfeld,"weiß"))
+#for j in range(0,8):
+   # print(s.genugabstandkönige(4,j,"weiß",spielfeld))
+    
+#for j in range(0,8):  
+    #print(feld_gedeckt(0,j,spielfeld,"weiß"))
+print(s.alle_ziele(spielfeld,farbe))
