@@ -7,6 +7,10 @@ Planung:https://www.overleaf.com/read/vvjwfkgjhfhd
 
 Bericht:https://www.overleaf.com/read/khvkmfqjnnjm
 
+INFOS:
+!!! MAN MUSS IN DER MAIN DATEI DEN PFAD DER MUSIK SOWIE DES BILDES UND DES VDIEOS ÄNDERN !!!
+
+
 
 05/06.3.2018:
 - Musik einbauen -> in die grafische Oberfläche einfügen
