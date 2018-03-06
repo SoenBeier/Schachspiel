@@ -367,11 +367,10 @@ help_menu = Menu(menuleiste, tearoff=0)
 
 # Beim Klick auf Datei oder auf Help sollen nun weitere Einträge erscheinen.
 # Diese werden also zu "datei_menu" und "help_menu" hinzugefügt
-datei_menu.add_command(label="Datei Speichern")
-datei_menu.add_separator() # Fügt eine Trennlinie hinzu
 datei_menu.add_command(label="Exit", command=fenster.quit)
 
-help_menu.add_command(label="Schachregeln")
+
+help_menu.add_command(label="Schachregeln", command = webbi)
 help_menu.add_command(label="About...", command=action_get_info_dialog)
 
 # Nun fügen wir die Menüs (Datei und Help) der Menüleiste als
@@ -463,17 +462,19 @@ button64.place(x=350, y=350, width=50, height= 50)
 #Patt.place(x=500,y=150,width = 150, height = 50)
 Aufgeben.place(x=500,y=250,width = 150, height = 50)
 #Cover am Rand
-a = PhotoImage(file=r"C:\Users\Julian\Desktop\Schach\BS.gif")
-imagelabel= Label(fenster, image = a)
+photo = PhotoImage(file ="C:\\Users\\Julian\\Desktop\\Schachspiel-Entwicklung-Alpha\\BS.gif")
+imagelabel= Label(fenster, image = photo)
 imagelabel.place(x=1050, y=25, width =200, height=200)
 #Hintergrundsound im Fenster
-sound = pygame.mixer.Sound("tootledip.wav")    
+pygame.mixer.pre_init(44100, 16, 2, 4096) #frequency, size, channels, buffersize
+pygame.init() #turn all of pygame on.
+sound = pygame.mixer.Sound("C:/Users/Julian/Desktop/Schachspiel-Entwicklung-Alpha/tootledip.wav")    
 
-soundbutton = Button(fenster, text = "PLay Backgroundmusic", command = sound.play)
-soundbutton.place(x = 800, y = 400)
+soundbutton = Button(fenster, text = "Play Backgroundmusic", command = sound.play)
+soundbutton.place(x = 900, y = 25)
 
 soundbutton = Button(fenster, text = "Stop Backgroundmusic", command = sound.stop)
-soundbutton.place(x = 800, y = 500)
+soundbutton.place(x = 900, y = 75)
 
 # In der Ereignisschleife auf Eingabe des Benutzers warten.
 
