@@ -60,7 +60,7 @@ def zug_bewertung_main(ya,xa,ye,xe,feld,schwierigkeit): #Gibt ein geordnetes Arr
     #hier bewertet ein Allgorithmus jeden Zug mit einer anderen Wertung; in der cpu_main() wird dann der am besten bewertete Zug ausgeführt
     if schwierigkeit == "normal":
         bewertung = zug_bewertung_entscheider(ya,xa,ye,xe,feld)
-#!!!!!!! hier weiter
+
         zb = [ya,xa,ye,xe,feld[ya][xa],feld[ye][xe],bewertung]
         
     if schwierigkeit == "schwer":#noch nicht fertig

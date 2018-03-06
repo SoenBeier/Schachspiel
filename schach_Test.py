@@ -19,10 +19,10 @@ import copy
 spielfeld = np.array(
     [["T","S","L","D","K","L","S","T"],#0
      ["B","B","B","0","B","B","B","0"],#1
-     ["0","0","0","0","0","0","0","0"],#2
+     ["0","0","t","0","0","0","0","0"],#2
      ["0","0","0","0","0","0","0","0"],#3
      ["0","0","0","0","0","0","0","0"],#4
-     ["0","0","0","0","0","0","0","0"],#5
+     ["t","0","l","l","0","0","0","0"],#5
      ["b","b","b","b","b","b","b","b"],#6
      ["t","s","l","d","k","l","s","t"]])#7
 #      0   1   2   3   4   5   6   7
@@ -53,7 +53,7 @@ def zug_bewertung_entscheider(ya,xa,ye,xe,feld):#gibt die Bewertung für einen Z
     elif feld[ya][xa] in wF:
         gF = sF
         vF = wF
-        eigne_farbe = "weiß"
+        eigene_farbe = "weiß"
         gegner_farbe = "schwarz"
     #Fehlermeldung, falls die Figur nicht erkannt wird
     else:
@@ -80,17 +80,27 @@ def zug_bewertung_entscheider(ya,xa,ye,xe,feld):#gibt die Bewertung für einen Z
     eigene_status_deckung, eigene_vielfachheit_deckung, eigene_art_deckung = feld_gedeckt(ye,xe,feld,eigene_farbe)
     print(feld_gedeckt(ye,xe,feld,eigene_farbe))
     if eigene_status_deckung == True:
-        bewertung = bewertung - 1
+        bewertung = bewertung + 1
+    
+    #Vergleicht die Deckungen des Zielfelds (Ist die Deckung des Gegners oder die durch eigene Figuren besser?):
         
-    #erstellt Variabel für die Abbruchbedingung der while Schleife
+    #für den Fall, dass die Deckung der gegner Figuren besser ist:
+    #erstellt Variabel für die Abbruchbedingung der folgenden while Schleife
     evd_schleife = copy.deepcopy(eigene_vielfachheit_deckung)
-    #vergleicht die Deckungen des Zielfelds -> Zieht von der Wertung Punkte ab - wenn die Abdeckung des Gegners besser ist
+    #Zieht Wertungspunkte ab, je größer die gegner Deckung im Vergleich zur eigenen ist; desto mehr Wertungspunkte
     print(gegner_vielfachheit_deckung, evd_schleife)
     while gegner_vielfachheit_deckung > evd_schleife:
         bewertung = bewertung - 1
         evd_schleife = evd_schleife + 1
         #!!! weiter mit Bezug auf den Wert der Figuren, die an der Deckung beteiligt sind
-        
+    
+    
+    #das selbe für den Fall, dass die Deckung der eigenen Figuren besser ist
+    gvd_schleife = copy.deepcopy(gegner_vielfachheit_deckung)
+    #Fügt Wertungspunkte hinzu, je größer die eigene Deckung im Vergleich zur gegner Deckung ist; desto mehr Wertungspunkte
+    while eigene_vielfachheit_deckung > gvd_schleife:
+        bewertung = bewertung + 1
+        gvd_schleife = gvd_schleife + 1
             
     
     
@@ -124,7 +134,11 @@ def feld_gedeckt(y,x,feld,farbe):#gibt Informationen zur Deckung der abgefragten
     
     #benötigte Arrays
     arbeits_feld = copy.deepcopy(feld) #aufgrund von Problemen mit globalen Variabeln
-    arbeits_feld[y][x] = "0" #Figur auf der gefragten Position wird gelöscht, damit später mit der moeglichezuege() Methode gearbeitet werden kann
+    if farbe == "weiß":
+        arbeits_feld[y][x] = "B" #erstellt eine gegnerische Figur auf diesem Feld, damit später die moeglichezuege() - Funktion angewendet werden kann
+    else:#== "schwarz"
+        arbeits_feld[y][x] = "b"
+
     eigene_Figuren, eigene_Figuren_typ = cpu.alle_eigenen_figuren(arbeits_feld, farbe)
     
     
@@ -153,13 +167,13 @@ def feld_gedeckt(y,x,feld,farbe):#gibt Informationen zur Deckung der abgefragten
 
 
     
-for y in range(0,8):
-    for x in range(0,8):
-        print(feld_gedeckt(y,x,spielfeld,"weiß"))
+#for y in range(0,8):
+    #for x in range(0,8):
+        #print(feld_gedeckt(y,x,spielfeld,"weiß"))
 
 
-
-
+print(zug_bewertung_entscheider(0,0,2,0,spielfeld))
+#print(feld_gedeckt(2,0,spielfeld,"weiß"))
 
 
 

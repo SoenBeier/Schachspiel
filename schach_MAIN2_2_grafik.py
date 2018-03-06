@@ -12,6 +12,7 @@ import schach_SETTINGS_SONSTIGES as seso
 import schach_CPU as cpu
 from tkinter import *
 from tkinter import messagebox
+from tkinter import simpledialog
 import pygame
 import webbrowser
 import copy
@@ -118,8 +119,27 @@ def button_Funktion(y,x):#(fertig)y,x sind columne, row des Buttons
             print(farbe, " ist am Zug")
         
         
+        #Wandelt einen Bauern am Ende des Spielfeld um, wenn dies nötig ist
+        schritt2, b_farbe, feld = seso.bauernumwandlung_1(feld,einstellungen["Anzahl_Spieler"])
+        if schritt2 == True :
+            if b_farbe == "weiß":
+                answer = None
+                moegliche_Figuren = ['t','d','s','l']
+                while answer not in moegliche_Figuren:
+                    answer = simpledialog.askstring("Input", "In welche Figur soll der Bauer umgewandelt werden?(t,d,s,l)", parent = fenster)
+                
+                feld = seso.bauernumwandlung_2(feld,answer)
+                    
+            else:
+                answer = None
+                moegliche_Figuren = ['T','D','S','L']
+                while answer not in moegliche_Figuren:
+                    answer = simpledialog.askstring("Input", "In welche Figur soll der Bauer umgewandelt werden?(T,D,S,L)", parent = fenster)
+                
+                feld = seso.bauernumwandlung_2(feld,answer)
+        
+        
         #Ändert die Anzeige der Buttons
-        feld = seso.bauernumwandlung(feld)
         config()
         #Überprüfung ob das Spiel zuende ist
         if seso.partie_verloren(feld,farbe) == True:
@@ -145,9 +165,28 @@ def button_Funktion(y,x):#(fertig)y,x sind columne, row des Buttons
                     farbe = "schwarz"
                 else:
                     farbe = "weiß"
-    
+                
+                
+                #Bauernumwandlung
+                schritt2, b_farbe, feld = seso.bauernumwandlung_1(feld,einstellungen["Anzahl_Spieler"])
+                if schritt2 == True :
+                    if b_farbe == "weiß":
+                        answer = None
+                        moegliche_Figuren = ['t','d','s','l']
+                        while answer not in moegliche_Figuren:
+                            answer = simpledialog.askstring("Input", "In welche Figur soll der Bauer umgewandelt werden?(t,d,s,l)", parent = fenster)
+                
+                        feld = seso.bauernumwandlung_2(feld,answer)
+                    
+                    else:
+                        answer = None
+                        moegliche_Figuren = ['T','D','S','L']
+                        while answer not in moegliche_Figuren:
+                            answer = simpledialog.askstring("Input", "In welche Figur soll der Bauer umgewandelt werden?(T,D,S,L)", parent = fenster)
+                
+                        feld = seso.bauernumwandlung_2(feld,answer)
+                
                 #Ändert die Anzeige der Buttons
-                feld = seso.bauernumwandlung(feld)
                 config()
                 
                 #Überprüfung ob das Spiel verloren ist
