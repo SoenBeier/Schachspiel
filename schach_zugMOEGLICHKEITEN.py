@@ -5,6 +5,7 @@ Created on Mon Feb 26 13:09:59 2018
 @author: S.H.B
 """
 #NOCH IM SCHACH STEHEN ERGÄNZEN !!!!
+import schach_CPU as cpu
 
 def moeglichezuege(y, x, feld, farbe): 
     #x,y == 0-7 /gibt ein Array zurück, in dem alle möglichen Züge der Figur auf der Position x,y gespeichert sind
@@ -140,7 +141,7 @@ def moeglichezuege(y, x, feld, farbe):
             if feld[y - 2][x + 1] in Gegnerund0:
                 m.append(y - 2)
                 m.append(x + 1)
-        if ((y - 2) >= 0 and (x - 1)) >= 0: #Schlag oder Bewegung oben2 links1
+        if ((y - 2) >= 0 and (x - 1) >= 0): #Schlag oder Bewegung oben2 links1
             if feld[y - 2][x - 1] in Gegnerund0:
                 m.append(y - 2)
                 m.append(x - 1)
@@ -347,6 +348,7 @@ def moeglichezuege(y, x, feld, farbe):
                     m.append(x)
         if x < 7:
             if (feld[y][x + 1] in Gegnerund0) and ((x + 1) <= 7): #Feld rechts
+                print(y,x+1,farbe,feld)
                 if genugabstandkönige(y,x + 1,farbe,feld) == True:
                     m.append(y)
                     m.append(x + 1)
@@ -381,7 +383,9 @@ def moeglichezuege(y, x, feld, farbe):
                     m.append(y - 1)
                     m.append(x + 1)
             
-        
+    elif feld[y][x] == "0":#Wenn ein lehres Feld aufgerufen wird wird [] zurückgegeben
+        return([])
+    
     else: #Fehlermeldung
         print(feld[y][x],farbe)
         raise NameError("Error - Schwerwiegender Fehler in moeglichezuege(x,y,feld,farbe) - Figur nicht erkannt")
@@ -390,6 +394,7 @@ def moeglichezuege(y, x, feld, farbe):
 
 
 def genugabstandkönige (y,x,farbe,feld): # (getestet) bekommt y - des Königs, x - des Königs, Farb - Wert des abgefragten Königs und Spielfeld
+    '''
     if farbe == "schwarz":
         for a in range(0,8):
             for b in range(0,8):
@@ -398,7 +403,7 @@ def genugabstandkönige (y,x,farbe,feld): # (getestet) bekommt y - des Königs, 
                     xkK = b #Abstand auf x-Achse könig-König
                     
                                     
-    elif farbe == "weiß" :  
+    else:  
         for a in range(0,8):
             for b in range(0,8):
                 if feld[a][b] == "K": 
@@ -410,5 +415,21 @@ def genugabstandkönige (y,x,farbe,feld): # (getestet) bekommt y - des Königs, 
         genug = True
     else:
         genug = False
-            
+    '''
+    genug = True
     return (genug) 
+
+
+def alle_ziele(feld, farbe):#Gibt alle möglichen Ziele der eigenen Figuren wieder; Form :(y1,x1,y2,x2,y3,x3...)
+    eigene_Figuren, eigene_Figuren_typ = cpu.alle_eigenen_figuren(feld,farbe)
+    #print(eigene_Figuren)
+    alle_ziele_array = []
+    
+    for i in range(0,int(len(eigene_Figuren) / 2)): #geht jede eigene Figur durch
+        alle_ziele_array.append(moeglichezuege(eigene_Figuren[i * 2],eigene_Figuren[i * 2 + 1],feld,farbe))#fügt jedes Array, welches die moeglichenzuege erstellt dem alle_ziele_array hinzu
+    
+    return alle_ziele_array
+    
+   
+    
+    

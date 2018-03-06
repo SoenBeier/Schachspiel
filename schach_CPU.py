@@ -51,13 +51,15 @@ def cpu_main(feld,farbe,schwierigkeit):#(getestet) gibt ein feld Array zurück, 
 #wichtige Funktionen:
     
     
-def zug_bewertung(ya,xa,ye,xe,feld,schwierigkeit): #yeigen,xeigen,yziel,xziel,typeigen,typziel,bewertung
+def zug_bewertung_main(ya,xa,ye,xe,feld,schwierigkeit): #Gibt ein geordnetes Array für jeden Zug zurück; jedem Zug wird eine Bewertung zugeordnet; Form:yeigen,xeigen,yziel,xziel,typeigen,typziel,bewertung
+    #Bewerten jeden Zug mit 0; -> jeder Zug ist dadurch gleichgewertet
     if schwierigkeit == "leicht":#(fertig)
         bewertung = 0
         zb = [ya,xa,ye,xe,feld[ya][xa],feld[ye][xe],bewertung]#alle Züge sind mit 1 gleich bewertet
-        
+    
+    #hier bewertet ein Allgorithmus jeden Zug mit einer anderen Wertung; in der cpu_main() wird dann der am besten bewertete Zug ausgeführt
     if schwierigkeit == "normal":
-        bewertung = 0
+        bewertung = zug_bewertung_entscheider(ya,xa,ye,xe,feld)
 #!!!!!!! hier weiter
         zb = [ya,xa,ye,xe,feld[ya][xa],feld[ye][xe],bewertung]
         
@@ -68,6 +70,13 @@ def zug_bewertung(ya,xa,ye,xe,feld,schwierigkeit): #yeigen,xeigen,yziel,xziel,ty
     return (zb)
 
 
+
+def zug_bewertung_entscheider(ya,xa,ye,xe,feld):#gibt die Bewertung für einen Zug im normalen Spielmodus zurück
+    bewertung = 0
+    return bewertung
+
+
+
 def alle_moeglichen_zuege(feld,farbe,schwierigkeit): #amz_array in Form: yeigen1,xeigen1,yziel1,xziel1,typeigen1,typziel1,bewertung1...
     aef, aeft = alle_eigenen_figuren(feld,farbe)
     amz_array = []
@@ -75,7 +84,7 @@ def alle_moeglichen_zuege(feld,farbe,schwierigkeit): #amz_array in Form: yeigen1
     for i in range(0,int(len(aef) / 2)): #geht jede einzelne eigene Figur durch und erzeugt ein Array mit den möglichen Zügen
         mz = zm.moeglichezuege(aef[i * 2], aef[i * 2 + 1], feld, farbe)
         for j in range(0,int(len(mz)/2)):#geht jede Zugmöglichkeit einer Figur durch und lässt sie bewerten
-            zb = zug_bewertung(aef[i * 2], aef[i * 2 + 1], mz[j * 2], mz[j * 2 + 1], feld, schwierigkeit)
+            zb = zug_bewertung_main(aef[i * 2], aef[i * 2 + 1], mz[j * 2], mz[j * 2 + 1], feld, schwierigkeit)
             
             amz_array = amz_array + zb#Informationen werden nun nacheinander an das anz_array angeheftet
     
@@ -112,13 +121,7 @@ def alle_eigenen_figuren(feld,farbe):#(getestet)aef_typ_array in Form y1,x1,typ1
     
 
 
-def figur_deckung(feld,y,x):#gibt Informationen zur Deckung der abgefragten Figur zurück
-    
-    status = None
-    vielfachheit = None
-    art = None
-    
-    return(status , vielfachheit , art)
+
 
 def figuren_schlagen(feld,y,x):#gibt mögliche Züge zum Schlagen zurück
     s = [None] #Form: [y1,x1,typ1,y2,x2,typ2....]

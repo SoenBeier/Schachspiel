@@ -77,3 +77,26 @@ def bauernumwandlung(feld):#Wandelt Bauern um, wenn diese das Ende des Spielfeld
                 else:
                     print('Falsche Eingabe. Bitte geben sie erneut eine Figur ein die sie haben möchten')
     return feld
+
+
+def partie_verloren(feld,farbe):#gibt True zurück, wenn das Spiel fertig ist
+    
+    import schach_CPU as cpu
+    
+    
+    #Wenn keine Figuren dieser Farbe auf dem Feld sind hat diese Farbe verloren
+    if len(cpu.alle_eigenen_figuren(feld,farbe)) == 0:
+        return True
+    elif len(cpu.alle_moeglichen_zuege(feld,farbe,"leicht")) == 0:
+        return True
+    else:
+        return False
+
+                
+            
+    
+
+
+
+
+
