@@ -38,6 +38,10 @@ feld = np.array(
 #Erstellt ein Dictionary ("Einstellungen" mit den vorgefassten Optionen)
 einstellungen = seso.settings() 
 
+#Intro
+os.system("Schach_5.mp4")
+fenster.title("Schach | " + einstellungen["Name1"] + " vs. " + einstellungen["Name2"])
+
 #vorgegebene Variabeln die für den Ablauf des Programms benötigt werden
 ya = None 
 xa = None 
@@ -119,7 +123,7 @@ def button_Funktion(y,x):#(fertig)y,x sind columne, row des Buttons
         config()
         #Überprüfung ob das Spiel zuende ist
         if seso.partie_verloren(feld,farbe) == True:
-            messagebox.showinfo(title = "VERLOREN" , farbe+ "hat verloren")
+            messagebox.showinfo("VERLOREN", farbe +  " hat verloren")
         
         
         
@@ -148,7 +152,7 @@ def button_Funktion(y,x):#(fertig)y,x sind columne, row des Buttons
                 
                 #Überprüfung ob das Spiel verloren ist
                 if seso.partie_verloren(feld,farbe) == True:
-                    messagebox.showinfo("VERLOREN", farbe + "hat verloren")
+                    messagebox.showinfo("VERLOREN", einstellungen["Name2"] + " hat verloren")
                     
     
     
@@ -236,6 +240,7 @@ Version: 1.0\n\
 Programm: Schach\n\
 Info: https://www.overleaf.com/read/khvkmfqjnnjm\n\
 Entwicklung: https://github.com/SoenBeier/Schachspiel/tree/master \n\
+Hintergrundmusik: Tootle Pip (Sims 4) \n\
 ************************"
 	messagebox.showinfo(message=m_text, title = "Infos")    
 
@@ -266,7 +271,8 @@ def Schachmatt2(einstellungen):
 #Definieren der einzelnen Buttons 
 
 #Randbuchstaben und Zahlen   
-Titel = Label(fenster,text = einstellungen["Name1"] + " vs " + einstellungen["Name2"],font=('Georgia',20))
+Titel = Label(fenster,text = einstellungen["Name1"] + " vs " + einstellungen["Name2"],font=('Georgia',15, "bold underline"), justify = "left")
+farb_info = Label(fenster, text = einstellungen["Name1"] + " - weiß - Kleinbuchstaben \n"  + einstellungen["Name2"] + " - schwarz - Großbuchstaben",font=('Georgia',10), justify = "left")
 A = Label(fenster, text = 'A') 
 B = Label(fenster, text = 'B')
 C = Label(fenster, text = 'C')
@@ -283,7 +289,8 @@ M = Label(fenster, text = '5')
 N = Label(fenster, text = '6')
 O = Label(fenster, text = '7')
 P = Label(fenster, text = '8')
-Titel.place(x = 125, y = 500)
+Titel.place(x = 500, y = 50)
+farb_info.place(x = 500, y = 85)
 I.place(x = 400, y=15)
 J.place(x = 400, y=65)
 K.place(x = 400, y=115)
