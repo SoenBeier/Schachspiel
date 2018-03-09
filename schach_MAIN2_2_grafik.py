@@ -74,16 +74,21 @@ def button_Funktion(y,x):#(fertig)y,x sind columne, row des Buttons
         status_ablauf = 2
         
         #Überprüfung ob die gewünschte Figur einem selbst gehört
-        if farbe == "weiß":
-            if feld[ya][xa] not in wF:
-                print("Die ausgewählte Figur ist nicht ihre - weiß ist am Zug")
-                messagebox.showerror("Error","Dieser Ausgewählte Figur ist nicht ihre - Weiß ist am Zug")
-                status_ablauf = 1
-        else :#farbe == "schwarz"
-            if feld[ya][xa] not in sF:
-                print("Die ausgewählte Figur ist nicht ihre - schwarz ist am Zug")
-                messagebox.showerror("Error","Dieser Ausgewählte Figur ist nicht ihre - Schwarz ist am Zug")
-                status_ablauf = 1
+        if  feld[ya][xa] == "0" :
+            messagebox.showerror("Error", "Auf diesem Feld steht keine Figur!")
+            status_ablauf = 1
+        else:
+            if farbe == "weiß":
+                if feld[ya][xa] not in wF:
+                    print("Die ausgewählte Figur ist nicht ihre - weiß ist am Zug")
+                    messagebox.showerror("Error","Diese Ausgewählte Figur ist nicht ihre - Weiß ist am Zug")
+                    status_ablauf = 1
+            else:#farbe == "schwarz"
+                if feld[ya][xa] not in sF: 
+                    print("Die ausgewählte Figur ist nicht ihre - schwarz ist am Zug")
+                    messagebox.showerror("Error","Diese Ausgewählte Figur ist nicht ihre - Schwarz ist am Zug")
+                    status_ablauf = 1
+         
             
         
         
@@ -191,7 +196,7 @@ def button_Funktion(y,x):#(fertig)y,x sind columne, row des Buttons
                 
                 #Überprüfung ob das Spiel verloren ist
                 if seso.partie_verloren(feld,farbe) == True:
-                    messagebox.showinfo("VERLOREN", einstellungen["Name2"] + " hat verloren")
+                    messagebox.showinfo("VERLOREN", einstellungen["Name1"] + " hat verloren")
                     
     
     
@@ -202,73 +207,77 @@ def button_Funktion(y,x):#(fertig)y,x sind columne, row des Buttons
 
 #Aktualisiert die Beschriftung des Buttons
 def config():
-    button1.config(text = feld[0][0])
-    button2.config(text = feld[0][1])
-    button3.config(text = feld[0][2])
-    button4.config(text = feld[0][3])
-    button5.config(text = feld[0][4])
-    button6.config(text = feld[0][5])
-    button7.config(text = feld[0][6])
-    button8.config(text = feld[0][7])
-    button9.config(text = feld[1][0])
-    button10.config(text = feld[1][1])
-    button11.config(text = feld[1][2])
-    button12.config(text = feld[1][3])
-    button13.config(text = feld[1][4])
-    button14.config(text = feld[1][5])
-    button15.config(text = feld[1][6])
-    button16.config(text = feld[1][7])
-    button17.config(text = feld[2][0])
-    button18.config(text = feld[2][1])
-    button19.config(text = feld[2][2])
-    button20.config(text = feld[2][3])
-    button21.config(text = feld[2][4])
-    button22.config(text = feld[2][5])
-    button23.config(text = feld[2][6])
-    button24.config(text = feld[2][7])
-    button25.config(text = feld[3][0])
-    button26.config(text = feld[3][1])
-    button27.config(text = feld[3][2])
-    button28.config(text = feld[3][3])
-    button29.config(text = feld[3][4])
-    button30.config(text = feld[3][5])
-    button31.config(text = feld[3][6])
-    button32.config(text = feld[3][7])
-    button33.config(text = feld[4][0])
-    button34.config(text = feld[4][1])
-    button35.config(text = feld[4][2])
-    button36.config(text = feld[4][3])
-    button37.config(text = feld[4][4])
-    button38.config(text = feld[4][5])
-    button39.config(text = feld[4][6])
-    button40.config(text = feld[4][7])
-    button41.config(text = feld[5][0])
-    button42.config(text = feld[5][1])
-    button43.config(text = feld[5][2])
-    button44.config(text = feld[5][3])
-    button45.config(text = feld[5][4])
-    button46.config(text = feld[5][5])
-    button47.config(text = feld[5][6])
-    button48.config(text = feld[5][7])
-    button49.config(text = feld[6][0])
-    button50.config(text = feld[6][1])
-    button51.config(text = feld[6][2])
-    button52.config(text = feld[6][3])
-    button53.config(text = feld[6][4])
-    button54.config(text = feld[6][5])
-    button55.config(text = feld[6][6])
-    button56.config(text = feld[6][7])
-    button57.config(text = feld[7][0])
-    button58.config(text = feld[7][1])
-    button59.config(text = feld[7][2])
-    button60.config(text = feld[7][3])
-    button61.config(text = feld[7][4])
-    button62.config(text = feld[7][5])
-    button63.config(text = feld[7][6])
-    button64.config(text = feld[7][7])
+    gfeld = copy.deepcopy(feld)
+    for i in range(0,8):
+        for j in range(0,8):
+            if gfeld[i][j] == "0":
+                gfeld[i][j] = " "
+    button1.config(text = gfeld[0][0])
+    button2.config(text = gfeld[0][1])
+    button3.config(text = gfeld[0][2])
+    button4.config(text = gfeld[0][3])
+    button5.config(text = gfeld[0][4])
+    button6.config(text = gfeld[0][5])
+    button7.config(text = gfeld[0][6])
+    button8.config(text = gfeld[0][7])
+    button9.config(text = gfeld[1][0])
+    button10.config(text = gfeld[1][1])
+    button11.config(text = gfeld[1][2])
+    button12.config(text = gfeld[1][3])
+    button13.config(text = gfeld[1][4])
+    button14.config(text = gfeld[1][5])
+    button15.config(text = gfeld[1][6])
+    button16.config(text = gfeld[1][7])
+    button17.config(text = gfeld[2][0])
+    button18.config(text = gfeld[2][1])
+    button19.config(text = gfeld[2][2])
+    button20.config(text = gfeld[2][3])
+    button21.config(text = gfeld[2][4])
+    button22.config(text = gfeld[2][5])
+    button23.config(text = gfeld[2][6])
+    button24.config(text = gfeld[2][7])
+    button25.config(text = gfeld[3][0])
+    button26.config(text = gfeld[3][1])
+    button27.config(text = gfeld[3][2])
+    button28.config(text = gfeld[3][3])
+    button29.config(text = gfeld[3][4])
+    button30.config(text = gfeld[3][5])
+    button31.config(text = gfeld[3][6])
+    button32.config(text = gfeld[3][7])
+    button33.config(text = gfeld[4][0])
+    button34.config(text = gfeld[4][1])
+    button35.config(text = gfeld[4][2])
+    button36.config(text = gfeld[4][3])
+    button37.config(text = gfeld[4][4])
+    button38.config(text = gfeld[4][5])
+    button39.config(text = gfeld[4][6])
+    button40.config(text = gfeld[4][7])
+    button41.config(text = gfeld[5][0])
+    button42.config(text = gfeld[5][1])
+    button43.config(text = gfeld[5][2])
+    button44.config(text = gfeld[5][3])
+    button45.config(text = gfeld[5][4])
+    button46.config(text = gfeld[5][5])
+    button47.config(text = gfeld[5][6])
+    button48.config(text = gfeld[5][7])
+    button49.config(text = gfeld[6][0])
+    button50.config(text = gfeld[6][1])
+    button51.config(text = gfeld[6][2])
+    button52.config(text = gfeld[6][3])
+    button53.config(text = gfeld[6][4])
+    button54.config(text = gfeld[6][5])
+    button55.config(text = gfeld[6][6])
+    button56.config(text = gfeld[6][7])
+    button57.config(text = gfeld[7][0])
+    button58.config(text = gfeld[7][1])
+    button59.config(text = gfeld[7][2])
+    button60.config(text = gfeld[7][3])
+    button61.config(text = gfeld[7][4])
+    button62.config(text = gfeld[7][5])
+    button63.config(text = gfeld[7][6])
+    button64.config(text = gfeld[7][7])
     
-    
-    
+ 
 # Funktionen für die Erstellung des Menüs    
 def action_get_info_dialog():
 	m_text = "\
@@ -420,7 +429,7 @@ button62 = Button(fenster, text=feld[7][5],bg='white',fg='black',command = lambd
 button63 = Button(fenster, text=feld[7][6],bg='black',fg='white',command = lambda: button_Funktion(7,6),font=('Georgia',20))
 button64 = Button(fenster, text=feld[7][7],bg='white',fg='black',command = lambda: button_Funktion(7,7),font=('Georgia',20))
 
-
+config()
 #Erstellt Menü
 
 # Menüleiste erstellen 
