@@ -50,33 +50,48 @@ def schwierigkeit_festlegen():
 def schachmatt():
     return False
 
-def bauernumwandlung(feld):#Wandelt Bauern um, wenn diese das Ende des Spielfelds erreicht haben
-    korrekt = False
-    efw = ['t','d','s','l'] #erlaubte Figuren zum ziehen für Weiß
-    efs = ['T','D','S','L'] #erlaubte Figuren zum ziehen für Schwarz
+def bauernumwandlung_1(feld,Anzahl_Spieler):#überprüft ob eine Figur in einen Bauern umgewandelt werden muss bzw. wandelt einen Bauern in eine Dame um, wenn der CPU am Zug ist
+    schritt2 = False
+    b_farbe = None
+
+    #für weiß:
     for i in range(0,8):
         y = 0
         if feld[y][i] == 'b':
-            while korrekt == False:
-                c = input("Geben sie eine Figur ihrer Wahl ein (t,d,...) ") # c entspricht dem neuen Wert des Feldes
-                if c in efw:
-                    korrekt = True
-                    feld[y][i] = c
-                else:
-                    print('Falsche Eingabe. Bitte geben sie erneut eine Figur ein die sie haben möchten')
-        
-    
+            schritt2 = True
+            b_farbe = "weiß"
+            
+               
+    #für schwarz:
     for i in range(0,8):
         y = 7
         if feld[y][i] == 'B':
-            while korrekt == False:
-                r = input("Geben sie eine Figur ein (T,D,...) ")  
-                if r in efs:
-                    korrekt = True
-                    feld[y][i] = r
-                else:
-                    print('Falsche Eingabe. Bitte geben sie erneut eine Figur ein die sie haben möchten')
-    return feld
+            if Anzahl_Spieler == "1":
+                feld[y][i] = "D"
+            else:
+                schritt2 = True
+                b_farbe = "schwarz"
+               
+    return (schritt2, b_farbe, feld)
+
+def bauernumwandlung_2(feld,figur_wahl):#wandelt den Bauern in die gewünschte Figur um
+
+    #für weiß:
+    for i in range(0,8):
+        y = 0
+        if feld[y][i] == 'b':
+            feld[y][i] = figur_wahl
+    #für schwarz:
+    for i in range(0,8):
+        y = 7
+        if feld[y][i] == 'B':
+            feld[y][i] = figur_wahl
+    
+    return (feld)
+    
+    
+
+
 
 
 def partie_verloren(feld,farbe):#gibt True zurück, wenn das Spiel fertig ist
