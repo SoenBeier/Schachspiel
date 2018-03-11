@@ -7,6 +7,8 @@ Planung:https://www.overleaf.com/read/vvjwfkgjhfhd
 
 Bericht:https://www.overleaf.com/read/khvkmfqjnnjm
 
+Video der Beispielpartie: https://youtu.be/S2BBIVFk6wY
+
 INFOS:
 !!! MAN MUSS IN DER MAIN DATEI DEN PFAD DER MUSIK SOWIE DES BILDES UND DES VDIEOS ÄNDERN !!!
 
