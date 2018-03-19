@@ -305,6 +305,7 @@ Hintergrundmusik:\n\
 (1) Tootle Pip (Sims 4)\n\
 (2) Crafty Party von Gert Wilden\n\
 (3) Spanish Flea von Herb Alpert\n\
+(4) Left bank two von Wayne Hill \n\
 **********************"
     messagebox.showinfo(message=text,title = "Verwendete Hintergrundmusik")
 
@@ -605,13 +606,13 @@ soundbutton.place(x = 1000, y = 50)
 soundbutton = Button(fenster, text = "Stop Craftyparty", command = sound2.stop)
 soundbutton.place(x = 1000, y = 100)
 
-soundbutton = Button(fenster, text = "Play Spanish Flea", command = sound3.play)
+soundbutton = Button(fenster, text = "Play Spanishflea", command = sound3.play)
 soundbutton.place(x = 900, y = 150)
 
-soundbutton = Button(fenster, text = "Stop Spanish Flea", command = sound3.stop)
+soundbutton = Button(fenster, text = "Stop Spanishflea", command = sound3.stop)
 soundbutton.place(x = 900, y = 200)
 
-soundbutton = Button(fenster, text = "Stop left bank two", command = sound4.play)
+soundbutton = Button(fenster, text = "Start left bank two", command = sound4.play)
 soundbutton.place(x = 1000, y = 150)
 
 soundbutton = Button(fenster, text = "Stop left bank two", command = sound4.stop)
