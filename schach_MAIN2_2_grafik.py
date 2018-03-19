@@ -590,6 +590,7 @@ pygame.init() #turn all of pygame on.
 sound = pygame.mixer.Sound("tootledip.wav")    
 sound2 = pygame.mixer.Sound("CraftyParty.wav")
 sound3 = pygame.mixer.Sound("SpanishFlea.wav")
+sound4 = pygame.mixer.Sound("leftb2.wav")
 
 soundbutton = Button(fenster, text = "Play tootledip", command = sound.play)
 soundbutton.place(x = 900, y = 50)
@@ -610,7 +611,11 @@ soundbutton.place(x = 900, y = 150)
 soundbutton = Button(fenster, text = "Stop Spanish Flea", command = sound3.stop)
 soundbutton.place(x = 900, y = 200)
 
+soundbutton = Button(fenster, text = "Stop left bank two", command = sound4.play)
+soundbutton.place(x = 1000, y = 150)
 
+soundbutton = Button(fenster, text = "Stop left bank two", command = sound4.stop)
+soundbutton.place(x = 1000, y = 200)
 
 fenster.iconbitmap(r'Pferd.ico')
 
