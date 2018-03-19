@@ -304,7 +304,7 @@ def backgroundmusic123():
 Hintergrundmusik:\n\
 (1) Tootle Pip (Sims 4)\n\
 (2) Crafty Party von Gert Wilden\n\
-(3) Take Five von Dave Brubeck\n\
+(3) Spanish Flea von Herb Alpert\n\
 **********************"
     messagebox.showinfo(message=text,title = "Verwendete Hintergrundmusik")
 
@@ -589,7 +589,7 @@ pygame.mixer.pre_init(44100, 16, 2, 4096) #frequency, size, channels, buffersize
 pygame.init() #turn all of pygame on.
 sound = pygame.mixer.Sound("tootledip.wav")    
 sound2 = pygame.mixer.Sound("CraftyParty.wav")
-sound3 = pygame.mixer.Sound("takefive.wav")
+sound3 = pygame.mixer.Sound("SpanishFlea.wav")
 
 soundbutton = Button(fenster, text = "Play tootledip", command = sound.play)
 soundbutton.place(x = 900, y = 50)
@@ -604,10 +604,10 @@ soundbutton.place(x = 1000, y = 50)
 soundbutton = Button(fenster, text = "Stop Craftyparty", command = sound2.stop)
 soundbutton.place(x = 1000, y = 100)
 
-soundbutton = Button(fenster, text = "Play takefive", command = sound3.play)
+soundbutton = Button(fenster, text = "Play Spanish Flea", command = sound3.play)
 soundbutton.place(x = 900, y = 150)
 
-soundbutton = Button(fenster, text = "Stop takefive", command = sound3.stop)
+soundbutton = Button(fenster, text = "Stop Spanish Flea", command = sound3.stop)
 soundbutton.place(x = 900, y = 200)
 
 
