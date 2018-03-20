@@ -252,16 +252,4 @@ def alle_eigenen_figuren(feld,farbe):#(getestet)aef_typ_array in Form y1,x1,typ1
 
 
 
-def figuren_schlagen(feld,y,x):#gibt mögliche Züge zum Schlagen zurück
-    s = [None] #Form: [y1,x1,typ1,y2,x2,typ2....]
-    return(s)
-
-def schachmatt_moeglichkeiten(feld,farbe):
-    #jede Möglichkeiten der Figuren durchprobieren
-    #feld Damit erzeugen 
-    #auf schachmattfunktion in Sonstiges zurückgreifen
-    status = None
-    sm = [None]# Form (yeigen1,xeigen1,yziel1,xziel1)
-    return(status, sm)
-
 
