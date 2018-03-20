@@ -294,7 +294,6 @@ Version: 1.0\n\
 Programm: Schach\n\
 Info: https://www.overleaf.com/read/khvkmfqjnnjm\n\
 Entwicklung: https://github.com/SoenBeier/Schachspiel/tree/master \n\
-Hintergrundmusik: Tootle Pip (Sims 4) \n\
 ************************"
 	messagebox.showinfo(message=m_text, title = "Infos")    
     
