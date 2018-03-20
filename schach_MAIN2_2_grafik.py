@@ -558,9 +558,9 @@ Aufgeben.place(x=500,y=250,width = 150, height = 50)
 # In der Ereignisschleife auf Eingabe des Benutzers warten.
 
 #Cover am Rand
-#photo = PhotoImage(file ="BS.gif")
-#imagelabel= Label(fenster, image = photo)
-#imagelabel.place(x=1050, y=25, width =200, height=200)
+photo = PhotoImage(file ="BS.gif")
+imagelabel= Label(fenster, image = photo)
+imagelabel.place(x=900, y=400, width =200, height=200)
 #Hintergrundsound im Fenster
 pygame.mixer.pre_init(44100, 16, 2, 4096) #frequency, size, channels, buffersize
 pygame.init() #turn all of pygame on.
