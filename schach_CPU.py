@@ -100,14 +100,14 @@ def zug_bewertung_entscheider(ya,xa,ye,xe,feld):#gibt die Bewertung für einen Z
         raise NameError("Error - Schwerwiegender Fehler in zug_bewertung_entscheider - Figur nicht erkannt")
     
     
-    #Bewertung aufgrund eines Gegners, der geschlagen werden kann (wichtig gegner Figur und Deckung der anderen Figur -> Vergleich mit eigener Wertung )
+   #Bewertung aufgrund eines Gegners, der geschlagen werden kann (wichtig gegner Figur und Deckung der anderen Figur -> Vergleich mit eigener Wertung )
     if feld[ye][xe] in gF:
         bewertung = bewertung + 1 #bewertet den Zug automatisch höher
         bewertung = bewertung + wertung_figur[feld[ye][xe]] #bewertet den Zug relativ zur geschlagenen Person höher
         
         
         
-    #Verringerung der Bewertung des Zuges, wenn die Figur auf ein Feld zieht, welches vom Gegner im Visier ist    
+   #Verringerung der Bewertung des Zuges, wenn die Figur auf ein Feld zieht, welches vom Gegner im Visier ist    
     #Lädt sich Informationen über die Art der Deckung der gegnerischen Figuren in die 3 folgenden Variabeln
     gegner_status_deckung, gegner_vielfachheit_deckung, gegner_art_deckung = feld_gedeckt(ya,xa,ye,xe,feld,gegner_farbe)
         #Abziehen von Bewertungs-Punkten für den Zug, wenn das Ziel gut gedeckt ist
@@ -115,7 +115,7 @@ def zug_bewertung_entscheider(ya,xa,ye,xe,feld):#gibt die Bewertung für einen Z
         bewertung = bewertung - 1
             
         
-    #Erhöhung der Bewertung des Zuges, wenn die Figur auf ein Feld zieht, welche von Verbündeten im Visier ist
+  #Erhöhung der Bewertung des Zuges, wenn die Figur auf ein Feld zieht, welche von Verbündeten im Visier ist
     eigene_status_deckung, eigene_vielfachheit_deckung, eigene_art_deckung = feld_gedeckt(ya,xa,ye,xe,feld,eigene_farbe)
     if eigene_status_deckung == True:
         bewertung = bewertung + 1
@@ -140,18 +140,63 @@ def zug_bewertung_entscheider(ya,xa,ye,xe,feld):#gibt die Bewertung für einen Z
         gvd_schleife = gvd_schleife + 1
             
     
-    
+   #Erhöhung der Bewertung, falls eine Bauernumwandlung eines Bauern möglich ist
+    if feld[ya][xa] == "B":
+        if rn.random() < 0.45: #damit der Computergegner mehr mit den Bauern macht wird der Wert der Züge mit Bauern manchmal erhöht
+            bewertung = bewertung + 1
+        if ye == 6 and feld[7][xe] == "0": #fast am Ende des Spielfelds
+            bewertung = bewertung + 1
+        if ye == 7: # am Ende des Spielfelds
+            bewertung = bewertung + 3
+        if ya == 1 and ye == 3: #Erhöhung der Bewertung, falls ein Bauer 2 Züge machen kann
+            bewertung = bewertung + 1
+            
+        
+    if feld[ya][xa] == "b":
+        if rn.random() < 0.45: #damit der Computergegner mehr mit den Bauern macht wird der Wert der Züge mit Bauern manchmal erhöht
+            bewertung = bewertung + 1
+        if ye == 1 and feld[0][xe] == "0": #fast am Ende des Spielfelds
+            bewertung = bewertung + 1
+        if ye == 0: # am Ende des Spielfelds
+            bewertung = bewertung + 3
+        if ya == 6 and ye == 4: #Erhöhung der Bewertung, falls ein Bauer 2 Züge machen kann
+            bewertung = bewertung + 1
+               
     
     #Bewertung aufgrund von Deckung gegenüber einer anderen verbündeten Figur(wichtig: Wertung einge Figur und eigene verbündete Figur)
-     
-    
-    #Erhöhung der Bewertung, falls ein Bauer 2 Züge machen kann
-    
+     #IN BEARBEITUNG
     
     #Verringerung der Bewertung, wenn die Figur aus einer Deckung rausgeht(wichtig: Wertung eigener Figur)
+    eigene_status_deckung, eigene_vielfachheit_deckung, eigene_art_deckung = feld_gedeckt(ya,xa,ya,xa,feld,eigene_farbe)
+    if eigene_status_deckung == True:
+        bewertung = bewertung - 1
+    #Erhöhung der Bewertung , wenn die Figur aus einer Gefahrensituation (feindliche Deckung) rausgeht  
+    gegner_status_deckung, gegner_vielfachheit_deckung, gegner_art_deckung = feld_gedeckt(ya,xa,ya,xa,feld,gegner_farbe)
+
+    if gegner_status_deckung == True:
+        bewertung = bewertung + 1
+            
+    #erstellt Variabel für die Abbruchbedingung der folgenden while Schleife
+    evd_schleife = copy.deepcopy(eigene_vielfachheit_deckung)
+    #Zieht Wertungspunkte ab, je größer die gegner Deckung im Vergleich zur eigenen ist; desto mehr Wertungspunkte
+    while gegner_vielfachheit_deckung > evd_schleife:
+        bewertung = bewertung + 1
+        evd_schleife = evd_schleife + 1
+        #!!! weiter mit Bezug auf den Wert der Figuren, die an der Deckung beteiligt sind
     
     
-    #Verringerung der Bewertung, wenn die Figur aus eine Position, in der sie jemanden Schlagen könnte verlässt(wichtig: Wertung der gegnerFigur)
+    #das selbe für den Fall, dass die Deckung der eigenen Figuren besser ist
+    gvd_schleife = copy.deepcopy(gegner_vielfachheit_deckung)
+    #Fügt Wertungspunkte hinzu, je größer die eigene Deckung im Vergleich zur gegner Deckung ist; desto mehr Wertungspunkte
+    while eigene_vielfachheit_deckung > gvd_schleife:
+        bewertung = bewertung - 1
+        gvd_schleife = gvd_schleife + 1        
+
+
+    
+   #Verringerung der Bewertung, wenn die Figur aus eine Position, in der sie jemanden Schlagen könnte verlässt(wichtig: Wertung der gegnerFigur)
+    #IN BEARBEITUNG
+    #zu Test-Zwecken:
     print(" ")
     print("eigen",eigene_status_deckung, eigene_vielfachheit_deckung, eigene_art_deckung)
     print("fremd",gegner_status_deckung, gegner_vielfachheit_deckung, gegner_art_deckung)
@@ -251,17 +296,5 @@ def alle_eigenen_figuren(feld,farbe):#(getestet)aef_typ_array in Form y1,x1,typ1
 
 
 
-
-def figuren_schlagen(feld,y,x):#gibt mögliche Züge zum Schlagen zurück
-    s = [None] #Form: [y1,x1,typ1,y2,x2,typ2....]
-    return(s)
-
-def schachmatt_moeglichkeiten(feld,farbe):
-    #jede Möglichkeiten der Figuren durchprobieren
-    #feld Damit erzeugen 
-    #auf schachmattfunktion in Sonstiges zurückgreifen
-    status = None
-    sm = [None]# Form (yeigen1,xeigen1,yziel1,xziel1)
-    return(status, sm)
 
 
