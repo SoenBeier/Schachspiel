@@ -118,6 +118,7 @@ def zug_bewertung_entscheider(ya,xa,ye,xe,feld):#gibt die Bewertung für einen Z
         bewertung = bewertung + 1 #bewertet den Zug automatisch höher
         bewertung = bewertung + wertung_figur[feld[ye][xe]] #bewertet den Zug relativ zur geschlagenen Person höher
         
+
         
         
    #Verringerung der Bewertung des Zuges, wenn die Figur auf ein Feld zieht, welches vom Gegner im Visier ist    
@@ -180,14 +181,19 @@ def zug_bewertung_entscheider(ya,xa,ye,xe,feld):#gibt die Bewertung für einen Z
      #IN BEARBEITUNG
     
     #Verringerung der Bewertung, wenn die Figur aus einer Deckung rausgeht(wichtig: Wertung eigener Figur)
+    wertung_fuer_Kriterium = 3 #für den Entwickler -> Verändert Gewichtung 
     eigene_status_deckung, eigene_vielfachheit_deckung, eigene_art_deckung = feld_gedeckt(ya,xa,ya,xa,feld,eigene_farbe)
     if eigene_status_deckung == True:
         bewertung = bewertung - 1
+        if wertung_figur[feld[ya,xa]] > 2:
+            bewertung = bewertung - int(wertung_figur[feld[ya,xa]]/wertung_fuer_Kriterium) #wird abhänig vom Wert der Figur gemacht
     #Erhöhung der Bewertung , wenn die Figur aus einer Gefahrensituation (feindliche Deckung) rausgeht  
     gegner_status_deckung, gegner_vielfachheit_deckung, gegner_art_deckung = feld_gedeckt(ya,xa,ya,xa,feld,gegner_farbe)
 
     if gegner_status_deckung == True:
         bewertung = bewertung + 1
+        if wertung_figur[feld[ya,xa]] > 2:
+            bewertung = bewertung + int(wertung_figur[feld[ya,xa]]/wertung_fuer_Kriterium)
             
     #erstellt Variabel für die Abbruchbedingung der folgenden while Schleife
     evd_schleife = copy.deepcopy(eigene_vielfachheit_deckung)
