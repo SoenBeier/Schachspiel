@@ -185,15 +185,15 @@ def zug_bewertung_entscheider(ya,xa,ye,xe,feld):#gibt die Bewertung für einen Z
     eigene_status_deckung, eigene_vielfachheit_deckung, eigene_art_deckung = feld_gedeckt(ya,xa,ya,xa,feld,eigene_farbe)
     if eigene_status_deckung == True:
         bewertung = bewertung - 1
-        if wertung_figur[feld[ya,xa]] > 2:
-            bewertung = bewertung - int(wertung_figur[feld[ya,xa]]/wertung_fuer_Kriterium) #wird abhänig vom Wert der Figur gemacht
+        #if wertung_figur[figur_typ] > 2:
+            #bewertung = bewertung - int(wertung_figur[figur_typ]/wertung_fuer_Kriterium) #wird abhänig vom Wert der Figur gemacht
     #Erhöhung der Bewertung , wenn die Figur aus einer Gefahrensituation (feindliche Deckung) rausgeht  
     gegner_status_deckung, gegner_vielfachheit_deckung, gegner_art_deckung = feld_gedeckt(ya,xa,ya,xa,feld,gegner_farbe)
 
     if gegner_status_deckung == True:
         bewertung = bewertung + 1
-        if wertung_figur[feld[ya,xa]] > 2:
-            bewertung = bewertung + int(wertung_figur[feld[ya,xa]]/wertung_fuer_Kriterium)
+        #if wertung_figur[figur_typ] > 2:
+            #bewertung = bewertung + int(wertung_figur[figur_typ]/wertung_fuer_Kriterium)
             
     #erstellt Variabel für die Abbruchbedingung der folgenden while Schleife
     evd_schleife = copy.deepcopy(eigene_vielfachheit_deckung)
