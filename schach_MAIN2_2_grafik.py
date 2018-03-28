@@ -557,9 +557,21 @@ Aufgeben.place(x=500,y=250,width = 150, height = 50)
 # In der Ereignisschleife auf Eingabe des Benutzers warten.
 
 #Cover am Rand
-photo = PhotoImage(file ="BS.gif")
-imagelabel= Label(fenster, image = photo)
-imagelabel.place(x=900, y=400, width =200, height=200)
+ltext = "\
+Bitte Starten sie den Kernel oder am besten das ganze Programm neu.\n\
+\n\
+Dieser Error erscheint wenn sie etwas am code geändert haben, ihn ausgeführt haben\
+und ein Fehler erscheint. Wenn sie diesen behoben haben und das Programm Starten\
+hat Pygame ein Problem damit das Image einzubinden. Wir bitten um Entschuldigung."
+try:
+    photo = PhotoImage(file ="BS.gif")
+    imagelabel= Label(fenster, image = photo)
+    imagelabel.place(x=900, y=400, width =200, height=200)
+except:
+    messagebox.showerror(message = ltext, title = "Image Pygame Error")
+
+
+
 #Hintergrundsound im Fenster
 pygame.mixer.pre_init(44100, 16, 2, 4096) #frequency, size, channels, buffersize
 pygame.init() #turn all of pygame on.
