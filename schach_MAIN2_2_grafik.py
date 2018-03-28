@@ -290,7 +290,7 @@ def action_get_info_dialog():
 ************************\n\
 Autor: Sönke Hendrik und Julian Stähle\n\
 Date: 03.18\n\
-Version: 1.0\n\
+Version: Beta 1.0\n\
 Programm: Schach\n\
 Info: https://www.overleaf.com/read/khvkmfqjnnjm\n\
 Entwicklung: https://github.com/SoenBeier/Schachspiel/tree/master \n\
