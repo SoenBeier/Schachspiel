@@ -7,7 +7,6 @@ Created on Thu Mar  1 12:42:41 2018
 import os
 from pylab import *
 import schach_ZUG as z
-import schach_GRAFIK as grafik
 import schach_SETTINGS_SONSTIGES as seso
 import schach_CPU as cpu
 from tkinter import *
