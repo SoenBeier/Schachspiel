@@ -16,7 +16,7 @@ from tkinter import simpledialog
 import pygame
 import webbrowser
 import copy
-
+import random
 
 # Ein Fenster erstellen
 fenster = Tk()
@@ -148,7 +148,10 @@ def button_Funktion(y,x):#(fertig)y,x sind columne, row des Buttons
         config()
         #Überprüfung ob das Spiel zuende ist
         if seso.partie_verloren(feld,farbe) == True:
-            messagebox.showinfo("VERLOREN", farbe +  " hat verloren")
+            pygame.mixer.init()
+            pygame.mixer.music.load('tada.wav')
+            pygame.mixer.music.play()
+            messagebox.showinfo("verloren", farbe +  " hat verloren")
         
         
         
@@ -196,7 +199,10 @@ def button_Funktion(y,x):#(fertig)y,x sind columne, row des Buttons
                 
                 #Überprüfung ob das Spiel verloren ist
                 if seso.partie_verloren(feld,farbe) == True:
-                    messagebox.showinfo("VERLOREN", einstellungen["Name1"] + " hat verloren")
+                    pygame.mixer.init()
+                    pygame.mixer.music.load('verloren.wav')
+                    pygame.mixer.music.play(0)
+                    messagebox.showinfo("Verloren", einstellungen["Name1"] + " hat verloren")
                     
     
     
@@ -284,13 +290,23 @@ def action_get_info_dialog():
 ************************\n\
 Autor: Sönke Hendrik und Julian Stähle\n\
 Date: 03.18\n\
-Version: 1.0\n\
+Version: Beta 1.0\n\
 Programm: Schach\n\
 Info: https://www.overleaf.com/read/khvkmfqjnnjm\n\
 Entwicklung: https://github.com/SoenBeier/Schachspiel/tree/master \n\
-Hintergrundmusik: Tootle Pip (Sims 4) \n\
 ************************"
 	messagebox.showinfo(message=m_text, title = "Infos")    
+    
+def backgroundmusic123():
+    text = "\
+**********************\n\
+Hintergrundmusik:\n\
+(1) Tootle Pip (Sims 4)\n\
+(2) Crafty Party von Gert Wilden\n\
+(3) Spanish Flea von Herb Alpert\n\
+(4) Left bank two von Wayne Hill \n\
+**********************"
+    messagebox.showinfo(message=text,title = "Verwendete Hintergrundmusik")
 
 #öffnet eine website hier für Schachregeln
 def webbi():
@@ -321,6 +337,8 @@ def Schachmatt2(einstellungen):
 #Randbuchstaben und Zahlen   
 Titel = Label(fenster,text = einstellungen["Name1"] + " vs " + einstellungen["Name2"],font=('Georgia',15, "bold underline"), justify = "left")
 farb_info = Label(fenster, text = einstellungen["Name1"] + " - weiß - Kleinbuchstaben \n"  + einstellungen["Name2"] + " - schwarz - Großbuchstaben",font=('Georgia',10), justify = "left")
+Musikauswahl = Label(fenster, text = "Musikauswahl", font = ('Georgia',20,"bold underline"))
+Ziel = Label(fenster, text = "ZIEL : Schlagen Sie alle gegnerischen Figuren!", font = ('Georgia',12))
 A = Label(fenster, text = 'A') 
 B = Label(fenster, text = 'B')
 C = Label(fenster, text = 'C')
@@ -339,6 +357,8 @@ O = Label(fenster, text = '7')
 P = Label(fenster, text = '8')
 Titel.place(x = 500, y = 50)
 farb_info.place(x = 500, y = 85)
+Musikauswahl.place(x = 900, y = 0)
+Ziel.place(x=500, y=150)
 I.place(x = 400, y=15)
 J.place(x = 400, y=65)
 K.place(x = 400, y=115)
@@ -446,6 +466,7 @@ datei_menu.add_command(label="Exit", command=fenster.quit)
 
 help_menu.add_command(label="Schachregeln", command = webbi)
 help_menu.add_command(label="About...", command=action_get_info_dialog)
+help_menu.add_command(label="Hintergrundmusik",command = backgroundmusic123)
 
 # Nun fügen wir die Menüs (Datei und Help) der Menüleiste als
 # "Drop-Down-Menü" hinzu
@@ -538,23 +559,77 @@ Aufgeben.place(x=500,y=250,width = 150, height = 50)
 # In der Ereignisschleife auf Eingabe des Benutzers warten.
 
 #Cover am Rand
-photo = PhotoImage(file ="BS.gif")
-imagelabel= Label(fenster, image = photo)
-imagelabel.place(x=1050, y=25, width =200, height=200)
+ltext = "\
+Bitte Starten sie den Kernel oder am besten das ganze Programm neu.\n\
+\n\
+Dieser Error erscheint wenn sie etwas am code geändert haben, ihn ausgeführt haben\
+und ein Fehler erscheint. Wenn sie diesen behoben haben und das Programm Starten\
+hat Pygame ein Problem damit das Image einzubinden. Wir bitten um Entschuldigung."
+try:
+    photo = PhotoImage(file ="BS.gif")
+    imagelabel= Label(fenster, image = photo)
+    imagelabel.place(x=900, y=400, width =200, height=200)
+except:
+    messagebox.showerror(message = ltext, title = "Image Pygame Error")
+
+
+
 #Hintergrundsound im Fenster
 pygame.mixer.pre_init(44100, 16, 2, 4096) #frequency, size, channels, buffersize
 pygame.init() #turn all of pygame on.
-sound = pygame.mixer.Sound("tootledip.wav")    
+'''_songs = ["CraftyParty.wav","tootledip.wav"]
+_currently_playing_song = None
+def soundstop():
+    global _currently_playing_song
+    _currently_playing_song = None
+def play_a_different_song():
+    global _currently_playing_song, _songs
+    next_song = random.choice(_songs)
+    while next_song == _currently_playing_song:
+        next_song = random.choice(_songs)
+    _currently_playing_song = next_song
+    pygame.mixer.music.load(next_song)
+    pygame.mixer.music.play()
 
-soundbutton = Button(fenster, text = "Play Backgroundmusic", command = sound.play)
+soundbutton = Button(fenster, text = "Play Backgroundmusic", command = play_a_different_song)
 soundbutton.place(x = 900, y = 25)
 
-soundbutton = Button(fenster, text = "Stop Backgroundmusic", command = sound.stop)
+soundbutton = Button(fenster, text = "Stop Backgroundmusic", command = soundstop)
 soundbutton.place(x = 900, y = 75)
 
+'''#spielt random songs aber nicht im Hintergrund
+
+pygame.mixer.pre_init(44100, 16, 2, 4096) #frequency, size, channels, buffersize
+pygame.init() #turn all of pygame on.
+sound = pygame.mixer.Sound("tootledip.wav")    
+sound2 = pygame.mixer.Sound("CraftyParty.wav")
+sound3 = pygame.mixer.Sound("SpanishFlea.wav")
+sound4 = pygame.mixer.Sound("leftb2.wav")
+
+soundbutton = Button(fenster, text = "Play tootledip", command = sound.play)
+soundbutton.place(x = 900, y = 50)
+
+soundbutton = Button(fenster, text = "Stop tootledip", command = sound.stop)
+soundbutton.place(x = 900, y = 100)
 
 
+soundbutton = Button(fenster, text = "Play Craftyparty", command = sound2.play)
+soundbutton.place(x = 1000, y = 50)
 
+soundbutton = Button(fenster, text = "Stop Craftyparty", command = sound2.stop)
+soundbutton.place(x = 1000, y = 100)
+
+soundbutton = Button(fenster, text = "Play Spanishflea", command = sound3.play)
+soundbutton.place(x = 900, y = 150)
+
+soundbutton = Button(fenster, text = "Stop Spanishflea", command = sound3.stop)
+soundbutton.place(x = 900, y = 200)
+
+soundbutton = Button(fenster, text = "Start left bank two", command = sound4.play)
+soundbutton.place(x = 1000, y = 150)
+
+soundbutton = Button(fenster, text = "Stop left bank two", command = sound4.stop)
+soundbutton.place(x = 1000, y = 200)
 
 fenster.iconbitmap(r'Pferd.ico')
 
