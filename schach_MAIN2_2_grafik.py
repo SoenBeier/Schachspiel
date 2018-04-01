@@ -5,6 +5,7 @@ Created on Thu Mar  1 12:42:41 2018
 @author: Julian Stähle, Sönke Beier
 """
 import os
+import sys
 from pylab import *
 import schach_ZUG as z
 import schach_GRAFIK as grafik
@@ -17,12 +18,105 @@ import pygame
 import webbrowser
 import copy
 import random
-
+import time 
 # Ein Fenster erstellen
 fenster = Tk()
 # Den Fenstertitle erstellen
-fenster.title("Schach")
 
+fenster.title("Ladebildschirm")
+fenster.geometry("1920x1080")
+cv = Canvas(fenster, width=1920, height=1080, bg = "white")
+cv.place(x = 0 , y = 0)
+schrift = Label(fenster, text = "Spiel laden", font=('Georgia',20), bg = "white", fg = "black")
+schrift.place(x = 1000,y = 550)
+mtext =  "Alles in Ordnung"
+label1 = Label(fenster, text = "",font=('Georgia',30), bg = "white", fg = "black")
+label1.place(x = 500, y = 250)
+textg = "\
+Das Spiel hat nun Fertig geladen.\n\
+Gehen Sie auf das Terminal oder in die Spyder Konsole\n\
+und geben Sie die Einstellungen ein mit denen Sie Spielen möchten\n\
+Wir wünschen viel Spaß :D"
+
+def gifoeffnen() :
+    label = Label()
+    label.place(x = 1150, y = 550)
+
+    a = randint(7,10)   
+    i = 0
+    while i<a:
+        counter = 0
+        
+        while counter < 17 :
+
+            photo = PhotoImage(file="schach.gif", format="gif -index " + str(counter))
+            label.config(image = photo, bg = "white")
+            time.sleep(0.1)
+            fenster.update()
+            counter += 1
+            if i == 0:
+                #imagelabel = Label(fenster, image = PhotoImage(file ="BS.gif"))
+                #imagelabel.place(x = 0, y = 0)
+                #canvas1 = Canvas(fenster, width = 340, height = 340)
+                #canvas1.place(x = 0, y = 0)
+                #cv.create_image(0, 0,anchor = NW, image = PhotoImage(file = "BS.gif"))
+                label1.config(text = "Lade Spielfeld")
+            elif  i == 2:
+                None
+                #imagelabel2 = Label(fenster, image = PhotoImage(file = "altesspielbrett.png"))
+                #imagelabel2.place(x = 200, y = 200)
+                label1.config(text = "Lade Spielfiguren")
+                label3 = Label(fenster, text = "produced by\n Sönke Beier",font=('Georgia',15), bg = "white", fg = "black")
+                label3.place(x = 50, y = 550)
+            elif i == 4:
+                #imagelabel3 = Label(fenster, text = "Lade", fg ="black")
+                #imagelabel3.place(x = 400, y = 200)
+                label1.config(text = "Lade Musik")
+                label3.destroy()
+                label4 = Label(fenster, text = "and \n Julian Stähle",font=('Georgia',15), bg = "white", fg = "black")
+                label4.place(x = 1100, y = 50)
+            elif i == 6:
+                #imagelabel4 = Label(fenster, text = "evt Bild von entwicklern",fg = "black")
+                #imagelabel4.place(x = 600, y = 200)
+                label1.config(text = "Gleich gehts los...")
+                label4.destroy()
+            elif i == a-1 and counter == 16 :
+                label1.destroy()
+                label2 = Label(fenster, text = textg , font=('Georgia',20), bg = "white", fg = "black" )
+                label2.place(x = 250, y = 255)
+                
+        else:
+            i+=1
+    
+    else:
+        label.destroy()
+        label2.destroy()
+        label3.destroy()
+        label4.destroy()
+        schrift.destroy()
+        cv.destroy()
+
+
+try:
+    fenster.iconbitmap(r'Pferd.ico')
+except:
+    messagebox.showerror(fenster, title = "Iconfehler", text = "Dem Programm ist es nicht möglich ein Icon einzubauen.")
+        
+gifoeffnen()
+
+
+
+
+
+
+
+
+
+
+
+
+
+fenster.title("Schach")
 
 
 #Erstellung des 8*8 Arrays des feldes zu Beginn:
@@ -40,9 +134,15 @@ feld = np.array(
 einstellungen = seso.settings() 
 
 #Intro
-os.system("Schach_5.mp4")
-fenster.title("Schach | " + einstellungen["Name1"] + " vs. " + einstellungen["Name2"])
-
+videotext="\
+Es ist nicht möglich das Video abzuspielen!\n\
+\n\
+Bitte wählen sie VLC als Standardprogramm um Videos zu starten.\n"
+try:
+    os.system("Schach_5.mp4")
+    fenster.title("Schach | " + einstellungen["Name1"] + " vs. " + einstellungen["Name2"])
+except:
+    messagebox.showerror(fenster, text = videotext, title = "Videoerror")
 #vorgegebene Variabeln die für den Ablauf des Programms benötigt werden
 ya = None 
 xa = None 
@@ -631,8 +731,10 @@ soundbutton.place(x = 1000, y = 150)
 soundbutton = Button(fenster, text = "Stop left bank two", command = sound4.stop)
 soundbutton.place(x = 1000, y = 200)
 
-fenster.iconbitmap(r'Pferd.ico')
-
+try:
+    fenster.iconbitmap(r'Pferd.ico')
+except:
+    messagebox.showerror(fenster, title = "Iconfehler", text = "Dem Programm ist es nicht möglich ein Icon einzubauen.")
 
 
 
